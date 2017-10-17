@@ -1,0 +1,24 @@
+2017-09-15T13:23:08.627 : getAllItems: 
+2017-09-15T13:23:16.297 : purchase: Item Name: CocaCola |Cost: 1.00 |Inventory: 12
+2017-09-15T14:11:23.355 : nullpurchase: null
+2017-09-15T14:19:31.957 : Not enough moneypurchase: Item Name: Doritos |Cost: 1.25 |Inventory: 0
+2017-09-15T14:19:43.152 : Sorry, no soup for you.purchase: Item Name: Doritos |Cost: 1.25 |Inventory: 0
+2017-09-15T14:19:54.182 : nullpurchase: null
+2017-09-15T14:22:21.081 : nullpurchase: null
+2017-09-15T14:55:38.242 : nullpurchase: null
+2017-09-15T15:05:11.339 : nullpurchase: null
+2017-09-15T15:08:03.095 : nullpurchase: null
+2017-09-15T15:08:59.544 : nullpurchase: null
+2017-09-15T15:11:04.874 : nullpurchase: null
+2017-09-15T15:12:07.683 : nullpurchase: null
+2017-09-15T15:15:14.252 : nullpurchase: null
+2017-09-15T15:16:17.522 : Not enough moneypurchase: Item Name: Doritos |Cost: 1.25 |Inventory: 0
+2017-09-15T15:18:08.860 : nullpurchase: null
+2017-09-15T15:26:12.064 : nullpurchase: null
+2017-09-15T15:28:54.288 : nullpurchase: null
+2017-09-15T15:34:41.250 : nullpurchase: null
+2017-09-16T12:12:33.210 : Not enough moneypurchase: Item Name: Snickers |Cost: 0.75 |Inventory: 8
+2017-09-16T12:14:20.605 : Not enough moneypurchase: Item Name: SunChips |Cost: 1.25 |Inventory: 4
+2017-09-17T17:51:29.633 : Not enough moneypurchase: Item Name: SunChips |Cost: 1.25 |Inventory: 4
+2017-09-18T11:11:19.436 : Not enough moneypurchase: Item Name: Snickers |Cost: 0.75 |Inventory: 8
+2017-09-18T11:11:54.001 : Not enough moneypurchase: Item Name: SunChips |Cost: 1.25 |Inventory: 4

@@ -1,0 +1,9 @@
+1::MilkyWay::0.75::0
+2::Snickers::0.75::0
+3::CocaCola::1.00::2
+4::Reeses::1.00::-8
+5::SunChips::1.25::2
+6::Doritos::1.25::5
+7::Orange::1.00::6
+8::Apple::0.80::3
+9::Banana::0.76::0

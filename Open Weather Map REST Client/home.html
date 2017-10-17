@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Weather Page</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/sticky-footer.css" rel="stylesheet">
+
+  </head>
+    <div class="container">
+        <!-- Banner + Nav -->
+        <div class="row" id="pageBannerAndNav">
+            <div class="col-md-12">
+                <h1 class="text-center">Weather Page</h1>
+                <hr>
+                <div class="text-center">
+                    <Label>Zip Code:</Label><input type="text" pattern="[0-9]{5}" title="Five digit zip code" />
+                    <Label>Units:</Label><select  id="unitSelect">
+                      <option value="Imperial">Imperial</option>
+                      <option value="Metric">Metric</option>
+                      </select>
+                    <button type="button" id="weatherButton" class="btn">Get Weather</button>
+                    <hr>
+                </div>
+                <div class="block" id="currentWeather">
+                  <h1>Current Weather in Minneapolis</h1>
+                    <col class="Leftblock"  id="iconWeather"></col>
+                    <col class="Rightblock" id="tempData"></col>
+                    <form id="form-group">
+                        <label class="div-horizontal" role="div" id="weather-div">
+                            <div class="div-group">
+                                <label for="list-current-temp" class="col-md-8 control-label">Temperature:</label>
+                                <div class="col-md-3">
+                                    <class="label-control" id="list-current-temp" placeholder="Temperature" required/>
+                                </div>
+                            </div>
+                            <div class="div-group">
+                                <label for="list-current-humidity" class="col-md-8 control-label">Humidity:</label>
+                                <div class="col-md-3">
+                                    <class="label-control" id="list-current-humidity" placeholder="Humidity" required/>
+                                </div>
+                            </div>
+                            <div class="div-group">
+                                <label for="list-current-wind" class="col-md-8 control-label"> Wind:</label
+                                <div class="col-md-3">
+                                    <class="label-control" id="list-current-wind" placeholder="Wind"/>
+                                </div>
+                            </div>
+                </form>
+                <div>
+                </div>
+    <script src="js/jquery-3.0.0.min.js"></script>
+    <script src="js/home.js"></script>
+  </body>
+</html>

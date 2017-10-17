@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vending Machine</title>
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.css"
+        rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+      <h1 style="text-align: center;">Vending Machine</h1>
+      <hr/>
+      <ul class="list-group" id="errorMessages"></ul>
+
+      <div class="col-md-9" id="itemRows">
+        </div>
+
+
+    <div class="col-md-3">
+    <h2 style="text-align: center;">Total $ In</h2>
+    <form class="form-horizontal" role="form" id="moneyInForm">
+        <div class="form-group">
+            <div class="col-md-12">
+                <input class="form-control" type="text" readonly id="moneyIn" style="border-align: center"></input>
+            </div>
+            <div class="col-md-6">
+            <button type="button"
+                    id="addDollar"
+                    class="btn btn-default">
+                Add Dollar
+            </button>
+          </div>
+            <div class="col-md-6">
+            <button type="button"
+                    id="addQuarter"
+                    class="btn btn-default">
+                Add Quarter
+            </button>
+          </div>
+            <div class="col-md-6">
+            <button type="button"
+                    id="addDime"
+                    class="btn btn-default">
+                Add Dime
+            </button>
+          </div>
+            <div class="col-md-6">
+            <button type="button"
+                    id="addNickel"
+                    class="btn btn-default">
+                Add Nickel
+            </button>
+          </div>
+        </div>
+        <hr>
+        <!-- <div class="make-purchase"> -->
+        <h2 style="text-align: center;">Messages</h2>
+        <form class="form-horizontal" role="form" id="messages">
+            <div class="form-group">
+                <div class="col-md-12">
+                    <span id="make-purchase"></span>
+                </div>
+                <div class="col-md-12">
+                    <input class="form-control" type="text" readonly id="displayMessages" style="border-align: center"></input>
+                </div>
+                <div class="col-md-3">
+                  Index:
+                </div>
+                <div class="col-md-9">
+                  <input class="form-control" type="text" readonly id="selectedItemIndex" style="border"></input>
+                </div>
+                <div class="col-md-6">
+                <button type="button"
+                        id="makePurchase"
+                        class="btn btn-default">
+                    Make Purchase
+                </button>
+              </div>
+            </div>
+            <hr>
+          <!-- <div class="dispense-change"> -->
+          <h2 style="text-align: center;">Change</h2>
+          <form class="form-horizontal" role="form" id="messages">
+              <div class="form-group">
+                  <div class="col-md-12">
+                      <span id="make-purchase"></span>
+                  </div>
+                  <div class="col-md-12">
+                      <input class="form-control" type="text" readonly id="change" style="border-align: center"></input>
+                  </div>
+                  <div class="col-md-6">
+                  <button type="button"
+                          id="returnChange"
+                          class="btn btn-default">
+                      Change Return
+                  </button>
+                </div>
+              </div>
+      </div>
+  <script src="js/jquery-2.2.4.min.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>
