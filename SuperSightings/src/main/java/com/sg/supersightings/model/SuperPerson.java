@@ -5,6 +5,7 @@
  */
 package com.sg.supersightings.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,11 +17,12 @@ public class SuperPerson {
     
     private int personId;
     private String superName;
-    private String description;
+    private String superDescription;
     private int side;
     private Power power;
-    private List<Organization> organization;
-    
+    private List<Organization> organization = new ArrayList<>();
+    private List<Sighting> sighting = new ArrayList<>();
+
     public int getPersonId() {
         return personId;
     }
@@ -38,11 +40,11 @@ public class SuperPerson {
     }
 
     public String getDescription() {
-        return description;
+        return superDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(String superDescription) {
+        this.superDescription = superDescription;
     }
 
     public int getSide() {
@@ -69,15 +71,24 @@ public class SuperPerson {
         this.organization = organization;
     }
 
+    public List<Sighting> getSighting() {
+        return sighting;
+    }
+
+    public void setSighting(List<Sighting> sighting) {
+        this.sighting = sighting;
+    }
+
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 31 * hash + this.personId;
-        hash = 31 * hash + Objects.hashCode(this.superName);
-        hash = 31 * hash + Objects.hashCode(this.description);
-        hash = 31 * hash + this.side;
-        hash = 31 * hash + Objects.hashCode(this.power);
-        hash = 31 * hash + Objects.hashCode(this.organization);
+        hash = 71 * hash + this.personId;
+        hash = 71 * hash + Objects.hashCode(this.superName);
+        hash = 71 * hash + Objects.hashCode(this.superDescription);
+        hash = 71 * hash + this.side;
+        hash = 71 * hash + Objects.hashCode(this.power);
+        hash = 71 * hash + Objects.hashCode(this.organization);
+        hash = 71 * hash + Objects.hashCode(this.sighting);
         return hash;
     }
 
@@ -102,7 +113,7 @@ public class SuperPerson {
         if (!Objects.equals(this.superName, other.superName)) {
             return false;
         }
-        if (!Objects.equals(this.description, other.description)) {
+        if (!Objects.equals(this.superDescription, other.superDescription)) {
             return false;
         }
         if (!Objects.equals(this.power, other.power)) {
@@ -111,12 +122,10 @@ public class SuperPerson {
         if (!Objects.equals(this.organization, other.organization)) {
             return false;
         }
+        if (!Objects.equals(this.sighting, other.sighting)) {
+            return false;
+        }
         return true;
     }
 
-
-
-
-
-   
 }

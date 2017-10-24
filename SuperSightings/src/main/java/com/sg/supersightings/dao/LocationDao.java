@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface LocationDao {
 
-    public void addLocation(Location location);
+    public Location addLocation(Location location);
 
     public void deleteLocation(int locationId);
 

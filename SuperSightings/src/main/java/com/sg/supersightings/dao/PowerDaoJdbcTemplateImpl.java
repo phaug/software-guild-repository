@@ -9,6 +9,7 @@ import com.sg.supersightings.model.Power;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.transaction.annotation.Propagation;
@@ -25,15 +26,18 @@ public class PowerDaoJdbcTemplateImpl implements PowerDao {
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-    
-    private static final String SQL_DELETE_POWER
-            = "delete from power where powerId = ?";
-    
+
     private static final String SQL_INSERT_POWER
             = "insert into power (powName) "
             + "value (?)";
 
-    private static final String SQL_SELECT_POWER_BY_ID
+    private static final String SQL_DELETE_POWER
+            = "delete from power where powerId = ?";
+
+    private static final String SQL_UPDATE_POWER
+            = "update power set powName = ? where powerId = ?";
+
+    private static final String SQL_SELECT_POWER
             = "select * from power where powerId = ?";
 
     private static final String SQL_SELECT_ALL_POWERS
@@ -69,12 +73,21 @@ public class PowerDaoJdbcTemplateImpl implements PowerDao {
 
     @Override
     public void updatePower(Power updatePower) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        jdbcTemplate.update(SQL_UPDATE_POWER,
+                updatePower.getPowerName(),
+                updatePower.getPowerId());
+
     }
 
     @Override
     public Power getPowerbyId(int id) {
-       return jdbcTemplate.queryForObject(SQL_SELECT_POWER_BY_ID,new PowerMapper(), id);
+         try {
+            return jdbcTemplate.queryForObject(SQL_SELECT_POWER, 
+                                               new PowerMapper(), 
+                                               id);
+        } catch (EmptyResultDataAccessException ex) {
+            return null;
+        }
     }
 
     @Override

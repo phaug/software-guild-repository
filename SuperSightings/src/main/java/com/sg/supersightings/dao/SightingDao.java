@@ -26,7 +26,7 @@ public interface SightingDao {
     
     public List<Sighting> getSightingsByPersonId (int personId);
     
-    public List<Sighting> getSightingbyLocationandDateId( int locationId, int dateId);
+    public List<Sighting> getSightingbyLocationIdandDate( int locationId, int date);
     
     public List<Sighting> getAllSightingsbyDate (int dateId);
 

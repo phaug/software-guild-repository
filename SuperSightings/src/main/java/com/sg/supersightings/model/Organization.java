@@ -5,8 +5,9 @@
  */
 package com.sg.supersightings.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.logging.Logger;
 
 /**
  *
@@ -16,8 +17,9 @@ public class Organization {
 
     private int organizationId;
     private String orgName;
-    private String orgDescription;
-    private String phoneNum;
+    private String description;
+    private String phone;
+    private List<SuperPerson> superPersons  = new ArrayList<>();
     private Location location;
 
     public int getOrganizationId() {
@@ -36,20 +38,28 @@ public class Organization {
         this.orgName = orgName;
     }
 
-    public String getOrgDescription() {
-        return orgDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setOrgDescription(String orgDescription) {
-        this.orgDescription = orgDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getPhoneNum() {
-        return phoneNum;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPhoneNum(String phoneNum) {
-        this.phoneNum = phoneNum;
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public List<SuperPerson> getSuperPersons() {
+        return superPersons;
+    }
+
+    public void setSuperPersons(List<SuperPerson> superPersons) {
+        this.superPersons = superPersons;
     }
 
     public Location getLocation() {
@@ -63,11 +73,12 @@ public class Organization {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + this.organizationId;
-        hash = 53 * hash + Objects.hashCode(this.orgName);
-        hash = 53 * hash + Objects.hashCode(this.orgDescription);
-        hash = 53 * hash + Objects.hashCode(this.phoneNum);
-        hash = 53 * hash + Objects.hashCode(this.location);
+        hash = 71 * hash + this.organizationId;
+        hash = 71 * hash + Objects.hashCode(this.orgName);
+        hash = 71 * hash + Objects.hashCode(this.description);
+        hash = 71 * hash + Objects.hashCode(this.phone);
+        hash = 71 * hash + Objects.hashCode(this.superPersons);
+        hash = 71 * hash + Objects.hashCode(this.location);
         return hash;
     }
 
@@ -89,10 +100,13 @@ public class Organization {
         if (!Objects.equals(this.orgName, other.orgName)) {
             return false;
         }
-        if (!Objects.equals(this.orgDescription, other.orgDescription)) {
+        if (!Objects.equals(this.description, other.description)) {
             return false;
         }
-        if (!Objects.equals(this.phoneNum, other.phoneNum)) {
+        if (!Objects.equals(this.phone, other.phone)) {
+            return false;
+        }
+        if (!Objects.equals(this.superPersons, other.superPersons)) {
             return false;
         }
         if (!Objects.equals(this.location, other.location)) {
@@ -101,4 +115,7 @@ public class Organization {
         return true;
     }
 
+
+
+    
 }
