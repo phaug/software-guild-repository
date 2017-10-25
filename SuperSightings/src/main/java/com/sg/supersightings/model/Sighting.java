@@ -87,7 +87,14 @@ public class Sighting {
             return false;
         }
         return true;
+        
     }
+
+    @Override
+    public String toString() {
+        return "Sighting{" + "sightingId=" + sightingId + ", date=" + date + ", location=" + location + ", superPerson=" + superPerson + '}';
+    }
+    
 
 
 }

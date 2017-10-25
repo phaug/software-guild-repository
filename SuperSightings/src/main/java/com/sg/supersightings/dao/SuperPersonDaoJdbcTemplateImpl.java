@@ -42,6 +42,7 @@ public class SuperPersonDaoJdbcTemplateImpl implements SuperPersonDao {
 
     private static final String SQL_DELETE_SUPERPERSONSIGHTING
             = "delete from superpersonsighting where superPersonId = ?";
+    
 
     private static final String SQL_UPDATE_PERSON
             = "update superperson set superName = ?, superDescription = ?, side = ?, "
@@ -56,10 +57,6 @@ public class SuperPersonDaoJdbcTemplateImpl implements SuperPersonDao {
     private static final String SQL_INSERT_SUPERPERSONSIGHTING
             = "insert into superpersonsighting (superPersonId, sightingId) values(?, ?)";
 
-    private static final String SQL_SELECT_POWER_FOR_SUPERPERSON
-            = "select power.powerId from superperson s "
-            + "inner join power on s.powerId = power.powerId "
-            + " where power.powerId = ?";
 
     private static final String SQL_SELECT_ALL_SUPERPERSONS
             = "select * from superperson";
@@ -177,11 +174,13 @@ public class SuperPersonDaoJdbcTemplateImpl implements SuperPersonDao {
                 person.getPersonId());
     }
 
-    private Power findPowerforPerson(SuperPerson person) {
+    private Power findPowerbyPersonId(SuperPerson person) {
         return jdbcTemplate.queryForObject(SQL_SELECT_POWER_BY_PERSONID,
                 new PowerMapper(),
                 person.getPersonId());
     }
+    
+                       
 
     
     private List<SuperPerson>
@@ -193,14 +192,14 @@ public class SuperPersonDaoJdbcTemplateImpl implements SuperPersonDao {
             // add the sighting to current persons
             currentPerson.setSighting(findSightingsForPerson(currentPerson));
             // add the power to current persons
-            currentPerson.setPower(findPowerforPerson(currentPerson));
+            currentPerson.setPower(findPowerbyPersonId(currentPerson));
         }
         return personList;
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public void addPerson(SuperPerson person
+    public SuperPerson addPerson(SuperPerson person
     ) {
         jdbcTemplate.update(SQL_INSERT_PERSON,
                 person.getSuperName(),
@@ -213,13 +212,14 @@ public class SuperPersonDaoJdbcTemplateImpl implements SuperPersonDao {
 
         insertSuperPersonOrganization(person);
         insertSuperPersonSighting(person);
-
+        return person;
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void deletePerson(int superPersonId
     ) {
+        jdbcTemplate.update(SQL_DELETE_SUPERPERSONSIGHTING, superPersonId);
         jdbcTemplate.update(SQL_DELETE_SUPERPERSONORGANIZATION, superPersonId);
         jdbcTemplate.update(SQL_DELETE_PERSON, superPersonId);
 
@@ -248,7 +248,7 @@ public class SuperPersonDaoJdbcTemplateImpl implements SuperPersonDao {
                     new PersonMapper(),
                     id);
 
-            superPerson.setPower(findPowerforPerson(superPerson));
+            superPerson.setPower(findPowerbyPersonId(superPerson));
             return superPerson;
         } catch (EmptyResultDataAccessException ex) {
             return null;

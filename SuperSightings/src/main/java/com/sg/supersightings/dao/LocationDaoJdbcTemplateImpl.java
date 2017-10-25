@@ -34,6 +34,12 @@ public class LocationDaoJdbcTemplateImpl implements LocationDao {
     private static final String SQL_DELETE_LOCATION
             = "delete from location where locationId = ?";
 
+    private static final String DELETE_LOCATION_FROM_SIGHTING
+            = "delete from sighting where locationId = ?";
+
+    private static final String DELETE_LOCATION_FROM_ORGANIZATION
+            = "delete from organization where locationId = ?";
+
     private static final String SQL_UPDATE_LOCATION
             = "update location set locationName = ?, description = ?, address = ?, "
             + "latitude = ?, longitude = ? where locationId = ?";
@@ -81,11 +87,13 @@ public class LocationDaoJdbcTemplateImpl implements LocationDao {
 
         location.setLocationId(locationId);
         return location;
-        
+
     }
 
     @Override
     public void deleteLocation(int locationId) {
+        jdbcTemplate.update(DELETE_LOCATION_FROM_SIGHTING, locationId);
+        jdbcTemplate.update(DELETE_LOCATION_FROM_ORGANIZATION, locationId);
         jdbcTemplate.update(SQL_DELETE_LOCATION, locationId);
     }
 
@@ -119,13 +127,13 @@ public class LocationDaoJdbcTemplateImpl implements LocationDao {
 
     @Override
     public List<Location> getLocationbyPersonId(int personId) {
-        List<Location> locationList =
-                jdbcTemplate.query(SQL_LOCATION_BY_PERSONID,
+        List<Location> locationList
+                = jdbcTemplate.query(SQL_LOCATION_BY_PERSONID,
                         new LocationMapper(),
                         personId);
-        
+
         return locationList;
-        
+
         //Ask Matt about helper methods for this.
     }
 

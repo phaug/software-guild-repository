@@ -60,6 +60,11 @@ public class Power {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Power{" + "powerId=" + powerId + ", powerName=" + powerName + '}';
+    }
     
     
 }

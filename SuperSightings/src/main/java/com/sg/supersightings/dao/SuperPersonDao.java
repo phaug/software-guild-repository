@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface SuperPersonDao {
 
-    public void addPerson(SuperPerson person);
+    public SuperPerson addPerson(SuperPerson person);
 
     public void deletePerson(int superPersonId);
 

@@ -6,6 +6,7 @@
 package com.sg.supersightings.dao;
 
 import com.sg.supersightings.model.Sighting;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -26,8 +27,8 @@ public interface SightingDao {
     
     public List<Sighting> getSightingsByPersonId (int personId);
     
-    public List<Sighting> getSightingbyLocationIdandDate( int locationId, int date);
+    public List<Sighting> getSightingbyLocationIdandDate( int locationId, LocalDate date);
     
-    public List<Sighting> getAllSightingsbyDate (int dateId);
+    public List<Sighting> getAllSightingsbyDate (LocalDate date);
 
 }

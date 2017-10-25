@@ -119,10 +119,10 @@ public class OrganizationTest {
         Organization fromDao = oDao.getOrganizationbyId(org.getOrganizationId());
         assertEquals(org, fromDao);
     }
-    
+
     @Test
     public void deleteOrganization() {
-           Location l = new Location();
+        Location l = new Location();
         l.setLocationName("Area 51");
         l.setDescription("?");
         l.setAddress("51 St");
@@ -158,10 +158,191 @@ public class OrganizationTest {
         oDao.deleteOrganization(org.getOrganizationId());
         assertNull(oDao.getOrganizationbyId(org.getOrganizationId()));
     }
-    
+
     @Test
-    public void updateOrganization(){
-        
+    public void updateOrganization() {
+
+        Location l = new Location();
+        l.setLocationName("Area 51");
+        l.setDescription("?");
+        l.setAddress("51 St");
+        l.setLatitude(BigDecimal.ONE);
+        l.setLongitude(BigDecimal.ONE);
+
+        lDao.addLocation(l);
+
+        Power p = new Power();
+        p.setPowerName("flight");
+        pDao.addPower(p);
+
+        SuperPerson sp = new SuperPerson();
+        sp.setSuperName("george");
+        sp.setDescription("Yeah");
+        sp.setSide(0);
+        sp.setPower(p);
+        spDao.addPerson(sp);
+
+        Organization org = new Organization();
+        org.setOrgName("Avengers");
+        org.setDescription("Mordor");
+        org.setPhone("555-5555");
+        org.setLocation(l);
+        List<SuperPerson> persons = new ArrayList<>();
+        persons.add(sp);
+        org.setSuperPersons(persons);
+
+        oDao.addOrganization(org);
+
+        org.setDescription("no");
+        oDao.updateOrganization(org);
+
+        Organization fromDao = oDao.getOrganizationbyId(org.getOrganizationId());
+        assertEquals(fromDao, org);
+
     }
 
+    @Test
+    public void getAllOrganizations() {
+
+        Location l = new Location();
+        l.setLocationName("Area 51");
+        l.setDescription("?");
+        l.setAddress("51 St");
+        l.setLatitude(BigDecimal.ONE);
+        l.setLongitude(BigDecimal.ONE);
+
+        lDao.addLocation(l);
+
+        Power p = new Power();
+        p.setPowerName("flight");
+        pDao.addPower(p);
+
+        SuperPerson sp = new SuperPerson();
+        sp.setSuperName("george");
+        sp.setDescription("Yeah");
+        sp.setSide(0);
+        sp.setPower(p);
+        spDao.addPerson(sp);
+
+        Organization org = new Organization();
+        org.setOrgName("Avengers");
+        org.setDescription("Mordor");
+        org.setPhone("555-5555");
+        org.setLocation(l);
+        List<SuperPerson> persons = new ArrayList<>();
+        persons.add(sp);
+        org.setSuperPersons(persons);
+
+        oDao.addOrganization(org);
+
+        Location loc = new Location();
+        loc.setLocationName("Area 51");
+        loc.setDescription("?");
+        loc.setAddress("51 St");
+        loc.setLatitude(BigDecimal.ONE);
+        loc.setLongitude(BigDecimal.ONE);
+
+        lDao.addLocation(loc);
+
+        Power power = new Power();
+        p.setPowerName("flight");
+        pDao.addPower(power);
+
+        SuperPerson person = new SuperPerson();
+        person.setSuperName("george");
+        person.setDescription("Yeah");
+        person.setSide(0);
+        person.setPower(p);
+        spDao.addPerson(person);
+
+        Organization organ = new Organization();
+        organ.setOrgName("Avengers");
+        organ.setDescription("Mordor");
+        organ.setPhone("555-5555");
+        organ.setLocation(l);
+        List<SuperPerson> sps = new ArrayList<>();
+        persons.add(sp);
+        org.setSuperPersons(sps);
+
+        oDao.addOrganization(org);
+        
+        List<Organization> list = oDao.getAllOrganizations();
+        assertEquals(list.size(), 2);
+    }
+    
+    @Test
+    public void getOrganizationById(){
+        Location l = new Location();
+        l.setLocationName("Area 51");
+        l.setDescription("?");
+        l.setAddress("51 St");
+        l.setLatitude(BigDecimal.ONE);
+        l.setLongitude(BigDecimal.ONE);
+
+        lDao.addLocation(l);
+
+        Power p = new Power();
+        p.setPowerName("flight");
+        pDao.addPower(p);
+
+        SuperPerson sp = new SuperPerson();
+        sp.setSuperName("george");
+        sp.setDescription("Yeah");
+        sp.setSide(0);
+        sp.setPower(p);
+        spDao.addPerson(sp);
+
+        Organization org = new Organization();
+        org.setOrgName("Avengers");
+        org.setDescription("Mordor");
+        org.setPhone("555-5555");
+        org.setLocation(l);
+        List<SuperPerson> persons = new ArrayList<>();
+        persons.add(sp);
+        org.setSuperPersons(persons);
+
+        oDao.addOrganization(org);
+        
+        Organization fromDao = oDao.getOrganizationbyId(org.getOrganizationId());
+        assertEquals(org, fromDao);
+    }
+    
+    @Test
+    public void getOrganizationByPersonId(){
+        
+        Location l = new Location();
+        l.setLocationName("Area 51");
+        l.setDescription("?");
+        l.setAddress("51 St");
+        l.setLatitude(BigDecimal.ONE);
+        l.setLongitude(BigDecimal.ONE);
+
+        lDao.addLocation(l);
+
+        Power p = new Power();
+        p.setPowerName("flight");
+        pDao.addPower(p);
+
+        SuperPerson sp = new SuperPerson();
+        sp.setSuperName("george");
+        sp.setDescription("Yeah");
+        sp.setSide(0);
+        sp.setPower(p);
+        spDao.addPerson(sp);
+
+        Organization org = new Organization();
+        org.setOrgName("Avengers");
+        org.setDescription("Mordor");
+        org.setPhone("555-5555");
+        org.setLocation(l);
+        List<SuperPerson> persons = new ArrayList<>();
+        persons.add(sp);
+        org.setSuperPersons(persons);
+
+        oDao.addOrganization(org);
+        
+        List<Organization> fromDao = oDao.getOrganizationsByPersonID(sp.getPersonId());
+        assertEquals(fromDao.size(), 1);
+    }
+    
 }

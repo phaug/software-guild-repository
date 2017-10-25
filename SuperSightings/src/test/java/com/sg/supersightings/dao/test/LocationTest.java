@@ -6,12 +6,16 @@
 package com.sg.supersightings.dao.test;
 
 import com.sg.supersightings.dao.LocationDao;
+import com.sg.supersightings.dao.PowerDao;
 import com.sg.supersightings.dao.SightingDao;
 import com.sg.supersightings.dao.SuperPersonDao;
 import com.sg.supersightings.model.Location;
+import com.sg.supersightings.model.Power;
 import com.sg.supersightings.model.Sighting;
 import com.sg.supersightings.model.SuperPerson;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -32,6 +36,7 @@ public class LocationTest {
     LocationDao lDao;
     SightingDao sDao;
     SuperPersonDao spDao;
+    PowerDao pDao;
 
     public LocationTest() {
     }
@@ -52,18 +57,24 @@ public class LocationTest {
         lDao = ctx.getBean("LocationDao", LocationDao.class);
         sDao = ctx.getBean("SightingDao", SightingDao.class);
         spDao = ctx.getBean("SuperPersonDao", SuperPersonDao.class);
+        pDao = ctx.getBean("PowerDao", PowerDao.class);
 
-        List<Location> location = lDao.getAllLocations();
-        for (Location currentLocation : location) {
-            lDao.deleteLocation(currentLocation.getLocationId());
-        }
         List<Sighting> sightings = sDao.getAllSightings();
         for (Sighting currentSighting : sightings) {
             sDao.deleteSighting(currentSighting.getSightingId());
         }
+        List<Location> location = lDao.getAllLocations();
+        for (Location currentLocation : location) {
+            lDao.deleteLocation(currentLocation.getLocationId());
+        }
         List<SuperPerson> persons = spDao.getAllPersons();
         for (SuperPerson currentPerson : persons) {
             spDao.deletePerson(currentPerson.getPersonId());
+        }
+
+        List<Power> powers = pDao.getAllPowers();
+        for (Power currentPower : powers) {
+            pDao.deletePower(currentPower.getPowerId());
         }
 
     }
@@ -154,11 +165,46 @@ public class LocationTest {
         location.setLatitude(BigDecimal.ONE);
         location.setLongitude(BigDecimal.ONE);
         Location addLocation = lDao.addLocation(location);
-        
+
         Location fromDao = lDao.getLocationbyId(location.getLocationId());
         assertEquals(location, fromDao);
-        
+
     }
-    
-    
+
+    @Test
+    public void getLocationbyPersonId() {
+        Location loc = new Location();
+        loc.setLocationName("Green");
+        loc.setDescription("?");
+        loc.setAddress("51 St");
+        loc.setLatitude(BigDecimal.ONE);
+        loc.setLongitude(BigDecimal.ONE);
+        loc = lDao.addLocation(loc);
+
+        Power p = new Power();
+        p.setPowerName("flight");
+        pDao.addPower(p);
+
+        SuperPerson person = new SuperPerson();
+        person.setSuperName("Name");
+        person.setDescription("awesome");
+        person.setSide(1);
+        person.setPower(p);
+        person = spDao.addPerson(person);
+
+        List<SuperPerson> sp = new ArrayList<>();
+        sp.add(person);
+
+        lDao.getLocationbyId(loc.getLocationId());
+
+        Sighting sighting = new Sighting();
+        sighting.setDate(LocalDate.now());
+        sighting.setLocation(loc);
+        sighting.setSuperPerson(sp);
+        sDao.addSighting(sighting);
+        
+        List<Location> fromDao = lDao.getLocationbyPersonId(person.getPersonId());
+        assertEquals(fromDao.size(), 1);
+    }
+
 }

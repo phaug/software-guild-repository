@@ -128,4 +128,9 @@ public class SuperPerson {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "SuperPerson{" + "personId=" + personId + ", superName=" + superName + ", superDescription=" + superDescription + ", side=" + side + ", power=" + power + ", organization=" + organization + ", sighting=" + sighting + '}';
+    }
+
 }

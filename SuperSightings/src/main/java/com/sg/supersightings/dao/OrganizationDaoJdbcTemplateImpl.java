@@ -7,9 +7,11 @@ package com.sg.supersightings.dao;
 
 import com.sg.supersightings.model.Location;
 import com.sg.supersightings.model.Organization;
+import com.sg.supersightings.model.Power;
 import com.sg.supersightings.model.SuperPerson;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -69,6 +71,11 @@ public class OrganizationDaoJdbcTemplateImpl implements OrganizationDao {
             + "inner join organization on l.locationId = organization.locationId "
             + "where organization.organizationId = ?";
 
+    private static final String SQL_SELECT_POWER_BY_PERSONID
+            = "select p.* from power p "
+            + "inner join superperson on p.powerId = superperson.powerId "
+            + "where superperson.superPersonId = ?";
+
     private static final class OrganizationMapper implements RowMapper<Organization> {
 
         @Override
@@ -92,6 +99,17 @@ public class OrganizationDaoJdbcTemplateImpl implements OrganizationDao {
             sp.setSide(rs.getInt("side"));
             sp.setPersonId(rs.getInt("superPersonId"));
             return sp;
+        }
+    }
+
+    private static final class PowerMapper implements RowMapper<Power> {
+
+        @Override
+        public Power mapRow(ResultSet rs, int i) throws SQLException {
+            Power p = new Power();
+            p.setPowerName(rs.getString("powName"));
+            p.setPowerId(rs.getInt("powerId"));
+            return p;
         }
     }
 
@@ -124,9 +142,17 @@ public class OrganizationDaoJdbcTemplateImpl implements OrganizationDao {
     }
 
     private List<SuperPerson> findPersonsForOrg(Organization org) {
-        return jdbcTemplate.query(SQL_SELECT_PERSONS_BY_ORGANIZATIONID,
+        List<SuperPerson> sp = new ArrayList<>();
+        sp = jdbcTemplate.query(SQL_SELECT_PERSONS_BY_ORGANIZATIONID,
                 new PersonMapper(),
                 org.getOrganizationId());
+        
+        for (SuperPerson superPerson : sp) {
+            superPerson.setPower(jdbcTemplate.queryForObject(SQL_SELECT_POWER_BY_PERSONID, 
+                    new PowerMapper(),
+                    superPerson.getPersonId()));
+        }
+        return sp;
     }
 
     private Location findLocationForOrganization(Organization org) {
@@ -173,11 +199,11 @@ public class OrganizationDaoJdbcTemplateImpl implements OrganizationDao {
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void updateOrganization(Organization updateOrg) {
-        jdbcTemplate.update(SQL_INSERT_ORGANIZATION,
+        jdbcTemplate.update(SQL_UPDATE_ORGANIZATION,
                 updateOrg.getOrgName(),
                 updateOrg.getDescription(),
-                updateOrg.getLocation().getLocationId(),
                 updateOrg.getPhone(),
+                updateOrg.getLocation().getLocationId(),
                 updateOrg.getOrganizationId());
         // delete superpersonorganization relationships and then reset them
         jdbcTemplate.update(SQL_DELETE_SUPERPERSONORGANIZATION, updateOrg.getOrganizationId());
@@ -211,11 +237,11 @@ public class OrganizationDaoJdbcTemplateImpl implements OrganizationDao {
 
     @Override
     public List<Organization> getOrganizationsByPersonID(int personId) {
-        List<Organization> orgList =
-                jdbcTemplate.query(SQL_SELECT_ORGANIZATION_BY_PERSONID, 
+        List<Organization> orgList
+                = jdbcTemplate.query(SQL_SELECT_ORGANIZATION_BY_PERSONID,
                         new OrganizationMapper(),
                         personId);
-        
+
         return associateLocationsandPersonsWithOrgs(orgList);
     }
 

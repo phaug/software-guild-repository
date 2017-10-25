@@ -115,6 +115,11 @@ public class Location {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Location{" + "locationId=" + locationId + ", locationName=" + locationName + ", description=" + description + ", address=" + address + ", latitude=" + latitude + ", longitude=" + longitude + '}';
+    }
     
     
 }

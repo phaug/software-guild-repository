@@ -6,10 +6,13 @@
 package com.sg.supersightings.dao;
 
 import com.sg.supersightings.model.Location;
+import com.sg.supersightings.model.Power;
 import com.sg.supersightings.model.Sighting;
 import com.sg.supersightings.model.SuperPerson;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -34,13 +37,13 @@ public class SightingDaoJdbcTemplateImpl implements SightingDao {
             + "value (?, ?)";
 
     private static final String SQL_DELETE_SIGHTING
-            = "delete from superperson where superpersonId = ?";
+            = "delete from sighting where sightingId = ?";
 
     private static final String SQL_DELETE_SUPERPERSONSIGHTING
             = "delete from superpersonsighting where sightingId = ?";
 
     private static final String SQL_UPDATE_SIGHTING
-            = "update sighting set date = ?, locationId = ?, "
+            = "update sighting set date = ?, locationId = ? "
             + "where sightingId = ?";
 
     private static final String SQL_SELECT_SIGHTING
@@ -70,13 +73,18 @@ public class SightingDaoJdbcTemplateImpl implements SightingDao {
             + "where p.superPersonId = ?";
     private static final String SQL_SELECT_SIGHTINGS_BY_DATE
             = "select * from sighting "
-            + "where date(`date`) = ?";
+            + "where date = ?";
 
     private static final String SQL_SELECT_SIGHTINGS_BY_LOCATIONID_AND_DATE
             = "select s.* from sighting s "
             + "inner join location on s.locationId = location.locationId "
             + "where location.locationId = ? "
-            + "and date(`date`) = ?;";
+            + "and s.date = ?";
+
+    private static final String SQL_SELECT_POWER_BY_PERSONID
+            = "select p.* from power p "
+            + "inner join superperson on p.powerId = superperson.powerId "
+            + "where superperson.superPersonId = ?";
 
     private static final class SightingMapper implements RowMapper<Sighting> {
 
@@ -95,9 +103,9 @@ public class SightingDaoJdbcTemplateImpl implements SightingDao {
         public SuperPerson mapRow(ResultSet rs, int i) throws SQLException {
             SuperPerson sp = new SuperPerson();
             sp.setSuperName(rs.getString("superName"));
-            sp.setDescription(rs.getString("description"));
+            sp.setDescription(rs.getString("superDescription"));
             sp.setSide(rs.getInt("side"));
-            sp.setPersonId(rs.getInt("personId"));
+            sp.setPersonId(rs.getInt("superPersonId"));
             return sp;
         }
     }
@@ -117,21 +125,40 @@ public class SightingDaoJdbcTemplateImpl implements SightingDao {
         }
     }
 
+    private static final class PowerMapper implements RowMapper<Power> {
+
+        @Override
+        public Power mapRow(ResultSet rs, int i) throws SQLException {
+            Power p = new Power();
+            p.setPowerName(rs.getString("powName"));
+            p.setPowerId(rs.getInt("powerId"));
+            return p;
+        }
+    }
+
     private void insertSuperPersonSightings(Sighting sighting) {
         final int sightingId = sighting.getSightingId();
         final List<SuperPerson> persons = sighting.getSuperPerson();
 
-        for (SuperPerson currentPerson : persons) {
+        persons.forEach((currentPerson) -> {
             jdbcTemplate.update(SQL_INSERT_SUPERPERSONSIGHTING,
-                    sightingId,
-                    currentPerson.getPersonId());
-        }
+                    currentPerson.getPersonId(),
+                    sightingId);
+        });
     }
 
     private List<SuperPerson> findPersonsforSighting(Sighting sighting) {
-        return jdbcTemplate.query(SQL_SELECT_PERSONS_BY_SIGHTINGID,
+        List<SuperPerson> sp = new ArrayList<>();
+        sp = jdbcTemplate.query(SQL_SELECT_PERSONS_BY_SIGHTINGID,
                 new PersonMapper(),
                 sighting.getSightingId());
+
+        for (SuperPerson superPerson : sp) {
+            superPerson.setPower(jdbcTemplate.queryForObject(SQL_SELECT_POWER_BY_PERSONID,
+                    new SightingDaoJdbcTemplateImpl.PowerMapper(),
+                    superPerson.getPersonId()));
+        }
+        return sp;
     }
 
     private Location findLocationforSighting(Sighting sighting) {
@@ -142,11 +169,11 @@ public class SightingDaoJdbcTemplateImpl implements SightingDao {
 
     private List<Sighting>
             associateLocationandPersonsWithSighting(List<Sighting> sightingList) {
-       
+
         for (Sighting currentSighting : sightingList) {
-            
+
             currentSighting.setSuperPerson(findPersonsforSighting(currentSighting));
-            
+
             currentSighting.setLocation(findLocationforSighting(currentSighting));
         }
         return sightingList;
@@ -156,11 +183,11 @@ public class SightingDaoJdbcTemplateImpl implements SightingDao {
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void addSighting(Sighting sighting) {
         jdbcTemplate.update(SQL_INSERT_SIGHTING,
-                sighting.getDate().toString(),
+                java.sql.Date.valueOf(sighting.getDate()),
                 sighting.getLocation().getLocationId());
+
         sighting.setSightingId(jdbcTemplate.queryForObject("select LAST_INSERT_ID()",
                 Integer.class));
-
         insertSuperPersonSightings(sighting);
     }
 
@@ -175,23 +202,23 @@ public class SightingDaoJdbcTemplateImpl implements SightingDao {
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void updateSighting(Sighting updateSighting) {
         jdbcTemplate.update(SQL_UPDATE_SIGHTING,
-                updateSighting.getDate(),
+                java.sql.Date.valueOf(updateSighting.getDate()),
                 updateSighting.getLocation().getLocationId(),
                 updateSighting.getSightingId());
-        jdbcTemplate.update(SQL_DELETE_SUPERPERSONSIGHTING, updateSighting);
+        jdbcTemplate.update(SQL_DELETE_SUPERPERSONSIGHTING, updateSighting.getSightingId());
         insertSuperPersonSightings(updateSighting);
     }
 
     @Override
     public Sighting getSightingbyId(int id) {
         try {
-      
+
             Sighting sighting = jdbcTemplate.queryForObject(SQL_SELECT_SIGHTING,
                     new SightingMapper(),
                     id);
-            
+
             sighting.setSuperPerson(findPersonsforSighting(sighting));
-            
+
             sighting.setLocation(findLocationforSighting(sighting));
             return sighting;
         } catch (EmptyResultDataAccessException ex) {
@@ -219,7 +246,7 @@ public class SightingDaoJdbcTemplateImpl implements SightingDao {
     }
 
     @Override
-    public List<Sighting> getSightingbyLocationIdandDate(int locationId, int date) {
+    public List<Sighting> getSightingbyLocationIdandDate(int locationId, LocalDate date) {
         List<Sighting> sightingList
                 = jdbcTemplate.query(SQL_SELECT_SIGHTINGS_BY_LOCATIONID_AND_DATE,
                         new SightingMapper(),
@@ -229,11 +256,11 @@ public class SightingDaoJdbcTemplateImpl implements SightingDao {
     }
 
     @Override
-    public List<Sighting> getAllSightingsbyDate(int dateId) {
+    public List<Sighting> getAllSightingsbyDate(LocalDate date) {
         List<Sighting> sightingList
                 = jdbcTemplate.query(SQL_SELECT_SIGHTINGS_BY_DATE,
                         new SightingMapper(),
-                        dateId);
+                        java.sql.Date.valueOf(date));
 
         return associateLocationandPersonsWithSighting(sightingList);
     }
