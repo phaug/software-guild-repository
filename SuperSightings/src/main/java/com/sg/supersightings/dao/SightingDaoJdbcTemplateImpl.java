@@ -250,7 +250,8 @@ public class SightingDaoJdbcTemplateImpl implements SightingDao {
         List<Sighting> sightingList
                 = jdbcTemplate.query(SQL_SELECT_SIGHTINGS_BY_LOCATIONID_AND_DATE,
                         new SightingMapper(),
-                        date);
+                        locationId,
+                        java.sql.Date.valueOf(date));
 
         return associateLocationandPersonsWithSighting(sightingList);
     }
