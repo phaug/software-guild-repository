@@ -7,16 +7,23 @@ package com.sg.supersightings.model;
 
 import java.math.BigDecimal;
 import java.util.Objects;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
  * @author apprentice
  */
 public class Location {
-    
+
     private int locationId;
+    @NotEmpty(message = "You must supply a value for Super Name.")
+    @Length(max = 50, message = "Super Name must be no more than 50 characters in length.")
     private String locationName;
+    @NotEmpty(message = "You must supply a value for Description.")
+    @Length(max = 100, message = "Description must be no more than 100 characters in length.")
     private String description;
+    @Length(max = 100, message = "Address must be no more than 100 characters in length.")
     private String address;
     private BigDecimal latitude;
     private BigDecimal longitude;
@@ -105,8 +112,7 @@ public class Location {
         if (!Objects.equals(this.address, other.address)) {
             return false;
         }
-        
-       
+
         if (this.latitude.compareTo(other.latitude) != 0) {
             return false;
         }
@@ -120,6 +126,5 @@ public class Location {
     public String toString() {
         return "Location{" + "locationId=" + locationId + ", locationName=" + locationName + ", description=" + description + ", address=" + address + ", latitude=" + latitude + ", longitude=" + longitude + '}';
     }
-    
-    
+
 }

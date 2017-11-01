@@ -8,16 +8,24 @@ package com.sg.supersightings.model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
  * @author apprentice
  */
 public class SuperPerson {
-    
+
     private int personId;
+    @NotEmpty(message = "You must supply a value for Super Person Name.")
+    @Length(max = 50, message = "Super Person Name must be no more than 50 characters in length.")
     private String superName;
+    @NotEmpty(message = "You must supply a value for Description.")
+    @Length(max = 100, message = "Description must be no more than 100 characters in length.")
     private String superDescription;
+    @Length(message = "You must supply a value for Side, "
+            + "please write -1 for evil, 0 for neutral, or 1 for hero.")
     private int side;
     private Power power;
     private List<Organization> organization = new ArrayList<>();
@@ -132,5 +140,6 @@ public class SuperPerson {
     public String toString() {
         return "SuperPerson{" + "personId=" + personId + ", superName=" + superName + ", superDescription=" + superDescription + ", side=" + side + ", power=" + power + ", organization=" + organization + ", sighting=" + sighting + '}';
     }
+
 
 }

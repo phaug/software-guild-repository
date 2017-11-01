@@ -8,10 +8,12 @@ package com.sg.supersightings.dao.test;
 import com.sg.supersightings.dao.LocationDao;
 import com.sg.supersightings.dao.OrganizationDao;
 import com.sg.supersightings.dao.PowerDao;
+import com.sg.supersightings.dao.SightingDao;
 import com.sg.supersightings.dao.SuperPersonDao;
 import com.sg.supersightings.model.Location;
 import com.sg.supersightings.model.Organization;
 import com.sg.supersightings.model.Power;
+import com.sg.supersightings.model.Sighting;
 import com.sg.supersightings.model.SuperPerson;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -36,6 +38,7 @@ public class OrganizationTest {
     LocationDao lDao;
     OrganizationDao oDao;
     PowerDao pDao;
+    SightingDao sDao;
 
     public OrganizationTest() {
     }
@@ -57,10 +60,15 @@ public class OrganizationTest {
         spDao = ctx.getBean("SuperPersonDao", SuperPersonDao.class);
         lDao = ctx.getBean("LocationDao", LocationDao.class);
         pDao = ctx.getBean("PowerDao", PowerDao.class);
+        sDao = ctx.getBean("SightingDao", SightingDao.class);
 
         List<Organization> orgs = oDao.getAllOrganizations();
         for (Organization currentOrg : orgs) {
             oDao.deleteOrganization(currentOrg.getOrganizationId());
+        }
+        List<Sighting> sightings = sDao.getAllSightings();
+        for (Sighting currentSighting : sightings) {
+            sDao.deleteSighting(currentSighting.getSightingId());
         }
 
         List<Location> location = lDao.getAllLocations();
@@ -265,13 +273,13 @@ public class OrganizationTest {
         org.setSuperPersons(sps);
 
         oDao.addOrganization(org);
-        
+
         List<Organization> list = oDao.getAllOrganizations();
         assertEquals(list.size(), 2);
     }
-    
+
     @Test
-    public void getOrganizationById(){
+    public void getOrganizationById() {
         Location l = new Location();
         l.setLocationName("Area 51");
         l.setDescription("?");
@@ -302,14 +310,14 @@ public class OrganizationTest {
         org.setSuperPersons(persons);
 
         oDao.addOrganization(org);
-        
+
         Organization fromDao = oDao.getOrganizationbyId(org.getOrganizationId());
         assertEquals(org, fromDao);
     }
-    
+
     @Test
-    public void getOrganizationByPersonId(){
-        
+    public void getOrganizationByPersonId() {
+
         Location l = new Location();
         l.setLocationName("Area 51");
         l.setDescription("?");
@@ -340,9 +348,9 @@ public class OrganizationTest {
         org.setSuperPersons(persons);
 
         oDao.addOrganization(org);
-        
+
         List<Organization> fromDao = oDao.getOrganizationsByPersonID(sp.getPersonId());
         assertEquals(fromDao.size(), 1);
     }
-    
+
 }

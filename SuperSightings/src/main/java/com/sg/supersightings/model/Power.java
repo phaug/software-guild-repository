@@ -6,14 +6,18 @@
 package com.sg.supersightings.model;
 
 import java.util.Objects;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
  * @author apprentice
  */
 public class Power {
-    
+
     private int powerId;
+    @NotEmpty(message = "You must supply a value for Power.")
+    @Length(max = 50, message = "Power must be no more than 50 characters in length.")
     private String powerName;
 
     public int getPowerId() {
@@ -65,6 +69,5 @@ public class Power {
     public String toString() {
         return "Power{" + "powerId=" + powerId + ", powerName=" + powerName + '}';
     }
-    
-    
+
 }

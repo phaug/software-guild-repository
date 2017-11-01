@@ -43,6 +43,9 @@ public class PowerDaoJdbcTemplateImpl implements PowerDao {
     private static final String SQL_SELECT_ALL_POWERS
             = "select * from power";
 
+    private static final String SQL_DELETE_PERSON
+            = "delete from superperson where superPersonId = ?";
+
     private static final class PowerMapper implements RowMapper<Power> {
 
         @Override
@@ -68,6 +71,7 @@ public class PowerDaoJdbcTemplateImpl implements PowerDao {
 
     @Override
     public void deletePower(int powerId) {
+        jdbcTemplate.update(SQL_DELETE_PERSON, powerId);
         jdbcTemplate.update(SQL_DELETE_POWER, powerId);
     }
 
@@ -81,10 +85,10 @@ public class PowerDaoJdbcTemplateImpl implements PowerDao {
 
     @Override
     public Power getPowerbyId(int id) {
-         try {
-            return jdbcTemplate.queryForObject(SQL_SELECT_POWER, 
-                                               new PowerMapper(), 
-                                               id);
+        try {
+            return jdbcTemplate.queryForObject(SQL_SELECT_POWER,
+                    new PowerMapper(),
+                    id);
         } catch (EmptyResultDataAccessException ex) {
             return null;
         }

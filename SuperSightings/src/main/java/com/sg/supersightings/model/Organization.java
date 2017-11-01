@@ -8,6 +8,8 @@ package com.sg.supersightings.model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
@@ -16,10 +18,16 @@ import java.util.Objects;
 public class Organization {
 
     private int organizationId;
+    @NotEmpty(message = "You must supply a value for Organization Name.")
+    @Length(max = 50, message = "Organization Name must be no more than 50 characters in length.")
     private String orgName;
+    @NotEmpty(message = "You must supply a value for Description.")
+    @Length(max = 50, message = "Description must be no more than 50 characters in length.")
     private String description;
+    @NotEmpty(message = "You must supply a value for Phone.")
+    @Length(max = 10, message = "Phone must be no more than 10 characters in length.")
     private String phone;
-    private List<SuperPerson> superPersons  = new ArrayList<>();
+    private List<SuperPerson> superPersons = new ArrayList<>();
     private Location location;
 
     public int getOrganizationId() {
@@ -115,7 +123,4 @@ public class Organization {
         return true;
     }
 
-
-
-    
 }

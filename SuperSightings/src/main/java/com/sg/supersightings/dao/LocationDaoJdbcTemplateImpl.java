@@ -134,7 +134,6 @@ public class LocationDaoJdbcTemplateImpl implements LocationDao {
 
         return locationList;
 
-        //Ask Matt about helper methods for this.
     }
 
 }

@@ -8,6 +8,8 @@ package com.sg.supersightings.model;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
@@ -16,8 +18,11 @@ import java.util.Objects;
 public class Sighting {
 
     private int sightingId;
+    @NotEmpty(message = "You must supply a value for Date.")
     private LocalDate date;
+    @NotEmpty(message = "You must supply a value for Location.")
     private Location location;
+    @NotEmpty(message = "You must select at least one Super Person.")
     private List<SuperPerson> superPerson;
 
     public int getSightingId() {
@@ -87,14 +92,12 @@ public class Sighting {
             return false;
         }
         return true;
-        
+
     }
 
     @Override
     public String toString() {
         return "Sighting{" + "sightingId=" + sightingId + ", date=" + date + ", location=" + location + ", superPerson=" + superPerson + '}';
     }
-    
-
 
 }
