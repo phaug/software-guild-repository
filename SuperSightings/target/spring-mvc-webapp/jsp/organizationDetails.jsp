@@ -43,16 +43,16 @@
                 </ul>    
             </div>
             <p>
-                Organization Name: <c:out value="${organization.OrganizationName}"/>
+                Organization Name: <c:out value="${organization.orgName}"/>
             </p>
             <p>
-                Description: <c:out value="${organization.Description}"/>
+                Description: <c:out value="${organization.description}"/>
             </p>
             <p>
-                Location: <c:out value="${organization.Location}"/>
+                Location: <c:out value="${organization.location}"/>
             </p>
             <p>
-                Phone: <c:out value="${organization.Phone}"/>
+                Phone: <c:out value="${organization.phone}"/>
             </p>
         </div>
         <!-- Placed at the end of the document so the pages load faster -->

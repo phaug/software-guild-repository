@@ -95,9 +95,9 @@
                     <h2>Add New Organization</h2>
                     <form class="form-horizontal" 
                           role="form" method="POST" 
-                          action="createOrganization">
+                          action="addOrganization">
                         <div class="form-group">
-                            <label for="add-organization-name" class="col-md-4 control-label">Organization Name:</label>
+                            <label for="add-organizationName" class="col-md-4 control-label">Organization Name:</label>
                             <div class="col-md-8">
                                 <input type="text" class="form-control" name="organizationName" placeholder="Organization Name"/>
                             </div>
@@ -111,7 +111,14 @@
                         <div class="form-group">
                             <label for="add-location" class="col-md-4 control-label">Location:</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" name="location" placeholder="Location"/>
+                                <select class="form-control" name="locationId">
+                                    <c:forEach var="location" items="${locationList}">
+                                    <option value="${location.getLocationId()}">
+                                        ${location.getLocationName()}
+                                    </option>
+                                    </c:forEach>
+                                </select>
+                                
                             </div>
                         </div>
                         <div class="form-group">

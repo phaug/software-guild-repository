@@ -44,7 +44,7 @@ public class PowerDaoJdbcTemplateImpl implements PowerDao {
             = "select * from power";
 
     private static final String SQL_DELETE_PERSON
-            = "delete from superperson where superPersonId = ?";
+            = "delete from superperson where powerId = ?";
 
     private static final class PowerMapper implements RowMapper<Power> {
 

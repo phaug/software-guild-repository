@@ -31,16 +31,14 @@ public class OrganizationController {
     LocationDao lDao;
 
     @Inject
-    public OrganizationController(OrganizationDao dao) {
+    public OrganizationController(OrganizationDao dao, LocationDao lDao) {
         this.dao = dao;
+        this.lDao = lDao;
     }
 
-
     @RequestMapping(value = "/addOrganization", method = RequestMethod.POST)
-
     public String addOrganization(HttpServletRequest request) {
         Organization organization = new Organization();
-
         int locationId = Integer.parseInt(request.getParameter("locationId"));
         Location location = lDao.getLocationbyId(locationId);
         organization.setOrgName(request.getParameter("organizationName"));
@@ -56,6 +54,9 @@ public class OrganizationController {
     @RequestMapping(value = "/displayOrganizationsPage", method = RequestMethod.GET)
     public String displayOrganizationsPage(Model model) {
         List<Organization> orgList = dao.getAllOrganizations();
+        List<Location> locationList = lDao.getAllLocations();
+
+        model.addAttribute("locationList", locationList);
 
         model.addAttribute("orgList", orgList);
         return "organizations";
@@ -85,19 +86,21 @@ public class OrganizationController {
     public String displayEditOrganizationForm(HttpServletRequest request, Model model) {
         String organizationIdParameter = request.getParameter("organizationId");
         int organizationId = Integer.parseInt(organizationIdParameter);
+        List<Location> locationList = lDao.getAllLocations();
+        model.addAttribute("locationList", locationList);
         Organization organization = dao.getOrganizationbyId(organizationId);
         model.addAttribute("organization", organization);
         return "editOrganizationForm";
     }
 
     @RequestMapping(value = "/editOrganization", method = RequestMethod.POST)
-    public String editOrganization(@Valid @ModelAttribute("organization") Organization organization, BindingResult result) {
+    public String editOrganization(@Valid @ModelAttribute("organization") Organization organization, BindingResult result, Integer locationId) {
 
         if (result.hasErrors()) {
             return "editOrganizationForm";
         }
+        organization.setLocation(lDao.getLocationbyId(locationId));
         dao.updateOrganization(organization);
-
         return "redirect:displayOrganizationsPage";
     }
 

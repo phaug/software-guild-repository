@@ -37,8 +37,7 @@
                             Super Locations!
                         </a>
                     </li>
-                    <li role="presentation"
-                        class="active">
+                    <li role="presentation">
                         <a href="${pageContext.request.contextPath}/displaySightingsPage">
                             Super Sightings!
                         </a>
@@ -55,9 +54,9 @@
                 <div class="form-group">
                     <label for="add-organizationName" class="col-md-4 control-label">Name:</label>
                     <div class="col-md-8">
-                        <sf:input type="text" class="form-control" id="organizationName"
-                                  path="organizationName" placeholder="Organization Name"/>
-                        <sf:errors path="organizationName" cssclass="error"></sf:errors>
+                        <sf:input type="text" class="form-control" id="orgName"
+                                  path="orgName" placeholder="Organization Name"/>
+                        <sf:errors path="orgName" cssclass="error"></sf:errors>
                         </div>
                     </div>
                     <div class="form-group">
@@ -71,31 +70,35 @@
                     <div class="form-group">
                         <label for="add-location" class="col-md-4 control-label">Location:</label>                          
                         <div class="col-md-8">
-                        <sf:input type="text" class="form-control" id="location"
-                                  path="location" placeholder="Location"/>
-                        <sf:errors path="location" cssclass="error"></sf:errors>
-                        </div>
+                            <select class="form-control" name="locationId">
+                            <c:forEach var="location" items="${locationList}">
+                                <option value="${location.getLocationId()}">
+                                    ${location.getLocationName()}
+                                </option>
+                            </c:forEach>
+                        </select>
                     </div>
-                    <div class="form-group">
-                        <label for="add-phone" class="col-md-4 control-label">Phone:</label>
-                        <div class="col-md-8">
+                </div>
+                <div class="form-group">
+                    <label for="add-phone" class="col-md-4 control-label">Phone:</label>
+                    <div class="col-md-8">
                         <sf:input type="tel" class="form-control" id="phone"
                                   path="phone" placeholder="Phone"/>
                         <sf:errors path="phone" cssclass="error"></sf:errors>
                         <sf:hidden path="organizationId"/>
-                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-4 col-md-8">
-                        <input type="submit" class="btn btn-default" value="Update Organization"/>
-                    </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-4 col-md-8">
+                    <input type="submit" class="btn btn-default" value="Update Organization"/>
                 </div>
-            </sf:form>                
-        </div>
-        <!-- Placed at the end of the document so the pages load faster -->
-        <script src="${pageContext.request.contextPath}/js/jquery-3.1.1.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+            </div>
+        </sf:form>                
+    </div>
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="${pageContext.request.contextPath}/js/jquery-3.1.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
-    </body>
+</body>
 </html>
