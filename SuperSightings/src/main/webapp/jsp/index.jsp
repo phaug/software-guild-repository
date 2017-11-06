@@ -50,8 +50,15 @@
                 </ul>    
             </div>
             <p>
-                Welcome to the Company Contacts Demo Project
+                Sightings Locator for Super Sightings!
             </p>
+            <div>
+                <c:forEach var="sighting" items="${sightingList}">
+                    <div>
+                        Id:${sighting.sightingId}
+                    </div>
+                </c:forEach>
+            </div>
         </div>
 
         <script src="${pageContext.request.contextPath}/js/jquery-3.1.1.min.js"></script>

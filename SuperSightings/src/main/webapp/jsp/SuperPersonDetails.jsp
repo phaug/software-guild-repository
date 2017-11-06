@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Company Contacts</title>
+        <title>Super Sightings</title>
 
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">        
     </head>
@@ -40,22 +40,52 @@
                             Super Sightings!
                         </a>
                     </li> 
+                    <li role="presentation">
+                        <a href="${pageContext.request.contextPath}/displayPowersPage">
+                            Super Powers!
+                        </a>
+                    </li>
                 </ul>    
             </div>
             <p>
-                Super Name: <c:out value="${person.SuperName}"/>
+                Super Name: <c:out value="${superPerson.superName}"/>
             </p>
             <p>
-                Description: <c:out value="${person.Description}"/>
+                Description: <c:out value="${superPerson.superDescription}"/>
             </p>
             <p>
-                Power: <c:out value="${person.Power}"/>
+                Power: <c:out value="${superPerson.power.powerName}"/>
             </p>
             <p>
-                Organization(s): <c:out value="${person.Organization}"/>
+
+                <c:choose>
+                    <c:when test="${superPerson.organization!=null}">Organization(s): 
+                        <c:forEach var="org" items="${superPerson.organization}">
+                            <c:out value="${org.orgName}"/>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        Organization(s): Not associated with an organization.
+                    </c:otherwise>
+                </c:choose>
+
             </p>
             <p>
-                Good or Evil?: <c:out value="${person.Side}"/>
+                <c:choose>
+                    <c:when test="${superPerson.side==-1}">
+                        Good or Evil?: Evil
+                    </c:when>
+                </c:choose>
+                <c:choose>
+                    <c:when test="${superPerson.side==0}">   
+                        Good or Evil?: Neutral
+                    </c:when> 
+                </c:choose>
+                <c:choose>
+                    <c:when test="${superPerson.side==1}">
+                        Good or Evil?: Good
+                    </c:when>
+                </c:choose>
             </p>
         </div>
         <!-- Placed at the end of the document so the pages load faster -->

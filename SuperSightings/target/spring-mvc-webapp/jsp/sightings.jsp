@@ -71,7 +71,7 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <c:out value="${currentSighting.location}"/>
+                                    <c:out value="${currentSighting.location.locationName}"/>
                                 </td>
                                 <td>
                                     <a href="displayEditSightingForm?sightingId=${currentSighting.sightingId}">
@@ -94,7 +94,7 @@
                     <h2>Add New Sighting</h2>
                     <form class="form-horizontal" 
                           role="form" method="POST" 
-                          action="createContact">
+                          action="createSighting">
                         <div class="form-group">
                             <label for="add-date" class="col-md-4 control-label">Date:</label>
                             <div class="col-md-8">
@@ -104,18 +104,30 @@
                         <div class="form-group">
                             <label for="add-location" class="col-md-4 control-label">Location:</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" name="location" placeholder="Location"/>
+                                <select class="form-control" name="locationId">
+                                    <c:forEach var="location" items="${locationList}">
+                                        <option value="${location.getLocationId()}">
+                                            ${location.getLocationName()}
+                                        </option>
+                                    </c:forEach>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="add-people" class="col-md-4 control-label">People:</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" name="people" placeholder="People"/>
+                                <select multiple class="form-control" name="personId">
+                                    <c:forEach var="superPerson" items="${superPersonList}">
+                                        <option value="${superPerson.getPersonId()}">
+                                            ${superPerson.getSuperName()}
+                                        </option>
+                                    </c:forEach>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-offset-4 col-md-8">
-                                <input type="submit" class="btn btn-default" value="Create Sighting"/>
+                                <input type="submit" class="btn btn-default" value="Add Sighting"/>
                             </div>
                         </div>
                     </form>

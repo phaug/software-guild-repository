@@ -7,6 +7,7 @@ package com.sg.supersightings.dao;
 
 import com.sg.supersightings.model.SuperPerson;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -27,6 +28,8 @@ public interface SuperPersonDao {
     public List<SuperPerson> getPersonByLocationId(int locationId);
     
     public List<SuperPerson> getPersonsByOrganizationId (int orgId);
+    
+    public Set<Integer> getOrgIdbyPersonId (int personId);
     
     
 

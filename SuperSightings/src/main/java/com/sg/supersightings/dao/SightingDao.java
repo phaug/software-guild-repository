@@ -31,4 +31,6 @@ public interface SightingDao {
     
     public List<Sighting> getAllSightingsbyDate (LocalDate date);
 
+    public List<Sighting> findLastTenSightings(LocalDate date);
+
 }

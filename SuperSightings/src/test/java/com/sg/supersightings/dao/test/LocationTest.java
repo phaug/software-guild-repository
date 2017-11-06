@@ -196,7 +196,7 @@ public class LocationTest {
 
         SuperPerson person = new SuperPerson();
         person.setSuperName("Name");
-        person.setDescription("awesome");
+        person.setSuperDescription("awesome");
         person.setSide(1);
         person.setPower(p);
         person = spDao.addPerson(person);

@@ -8,8 +8,9 @@ package com.sg.supersightings.model;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
-import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 /**
  *
@@ -19,6 +20,7 @@ public class Sighting {
 
     private int sightingId;
     @NotEmpty(message = "You must supply a value for Date.")
+    @DateTimeFormat(iso = ISO.DATE)
     private LocalDate date;
     @NotEmpty(message = "You must supply a value for Location.")
     private Location location;

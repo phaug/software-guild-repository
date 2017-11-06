@@ -126,7 +126,7 @@ public class SuperPersonTest {
 
         SuperPerson person = new SuperPerson();
         person.setSuperName("Name");
-        person.setDescription("awesome");
+        person.setSuperDescription("awesome");
         person.setSide(1);
         person.setPower(p);
         List<Organization> organization = new ArrayList<>();
@@ -179,7 +179,7 @@ public class SuperPersonTest {
 
         SuperPerson person = new SuperPerson();
         person.setSuperName("Name");
-        person.setDescription("awesome");
+        person.setSuperDescription("awesome");
         person.setSide(1);
         person.setPower(p);
         List<Organization> organization = new ArrayList<>();
@@ -234,7 +234,7 @@ public class SuperPersonTest {
 
         SuperPerson person = new SuperPerson();
         person.setSuperName("Name");
-        person.setDescription("awesome");
+        person.setSuperDescription("awesome");
         person.setSide(1);
         person.setPower(p);
         List<Organization> organization = new ArrayList<>();
@@ -290,7 +290,7 @@ public class SuperPersonTest {
 
         SuperPerson person = new SuperPerson();
         person.setSuperName("Name");
-        person.setDescription("awesome");
+        person.setSuperDescription("awesome");
         person.setSide(1);
         person.setPower(p);
         List<Organization> organization = new ArrayList<>();
@@ -343,7 +343,7 @@ public class SuperPersonTest {
 
         SuperPerson person = new SuperPerson();
         person.setSuperName("Name");
-        person.setDescription("awesome");
+        person.setSuperDescription("awesome");
         person.setSide(1);
         person.setPower(p);
         List<Organization> organization = new ArrayList<>();
@@ -392,7 +392,7 @@ public class SuperPersonTest {
 
         SuperPerson persons = new SuperPerson();
         persons.setSuperName("John");
-        persons.setDescription("uh");
+        persons.setSuperDescription("uh");
         persons.setSide(1);
         persons.setPower(p);
         List<Organization> organizations = new ArrayList<>();
@@ -447,7 +447,7 @@ public class SuperPersonTest {
 
         SuperPerson person = new SuperPerson();
         person.setSuperName("Name");
-        person.setDescription("awesome");
+        person.setSuperDescription("awesome");
         person.setSide(1);
         person.setPower(p);
         List<Organization> organization = new ArrayList<>();
@@ -501,7 +501,7 @@ public class SuperPersonTest {
 
         SuperPerson person = new SuperPerson();
         person.setSuperName("Name");
-        person.setDescription("awesome");
+        person.setSuperDescription("awesome");
         person.setSide(1);
         person.setPower(p);
         List<Organization> organization = new ArrayList<>();

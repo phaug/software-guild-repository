@@ -108,7 +108,7 @@ public class OrganizationTest {
 
         SuperPerson sp = new SuperPerson();
         sp.setSuperName("george");
-        sp.setDescription("Yeah");
+        sp.setSuperDescription("Yeah");
         sp.setSide(0);
         sp.setPower(p);
         spDao.addPerson(sp);
@@ -145,7 +145,7 @@ public class OrganizationTest {
 
         SuperPerson sp = new SuperPerson();
         sp.setSuperName("george");
-        sp.setDescription("Yeah");
+        sp.setSuperDescription("Yeah");
         sp.setSide(0);
         sp.setPower(p);
         spDao.addPerson(sp);
@@ -185,7 +185,7 @@ public class OrganizationTest {
 
         SuperPerson sp = new SuperPerson();
         sp.setSuperName("george");
-        sp.setDescription("Yeah");
+        sp.setSuperDescription("Yeah");
         sp.setSide(0);
         sp.setPower(p);
         spDao.addPerson(sp);
@@ -227,7 +227,7 @@ public class OrganizationTest {
 
         SuperPerson sp = new SuperPerson();
         sp.setSuperName("george");
-        sp.setDescription("Yeah");
+        sp.setSuperDescription("Yeah");
         sp.setSide(0);
         sp.setPower(p);
         spDao.addPerson(sp);
@@ -258,7 +258,7 @@ public class OrganizationTest {
 
         SuperPerson person = new SuperPerson();
         person.setSuperName("george");
-        person.setDescription("Yeah");
+        person.setSuperDescription("Yeah");
         person.setSide(0);
         person.setPower(p);
         spDao.addPerson(person);
@@ -295,7 +295,7 @@ public class OrganizationTest {
 
         SuperPerson sp = new SuperPerson();
         sp.setSuperName("george");
-        sp.setDescription("Yeah");
+        sp.setSuperDescription("Yeah");
         sp.setSide(0);
         sp.setPower(p);
         spDao.addPerson(sp);
@@ -333,7 +333,7 @@ public class OrganizationTest {
 
         SuperPerson sp = new SuperPerson();
         sp.setSuperName("george");
-        sp.setDescription("Yeah");
+        sp.setSuperDescription("Yeah");
         sp.setSide(0);
         sp.setPower(p);
         spDao.addPerson(sp);

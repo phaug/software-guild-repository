@@ -11,7 +11,9 @@ import com.sg.supersightings.model.Sighting;
 import com.sg.supersightings.model.SuperPerson;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -42,7 +44,6 @@ public class SuperPersonDaoJdbcTemplateImpl implements SuperPersonDao {
 
     private static final String SQL_DELETE_SUPERPERSONSIGHTING
             = "delete from superpersonsighting where superPersonId = ?";
-    
 
     private static final String SQL_UPDATE_PERSON
             = "update superperson set superName = ?, superDescription = ?, side = ?, "
@@ -56,7 +57,6 @@ public class SuperPersonDaoJdbcTemplateImpl implements SuperPersonDao {
 
     private static final String SQL_INSERT_SUPERPERSONSIGHTING
             = "insert into superpersonsighting (superPersonId, sightingId) values(?, ?)";
-
 
     private static final String SQL_SELECT_ALL_SUPERPERSONS
             = "select * from superperson";
@@ -90,13 +90,17 @@ public class SuperPersonDaoJdbcTemplateImpl implements SuperPersonDao {
             + "inner join superperson p on p.superPersonId = superpersonorganization.superPersonId "
             + "where p.superPersonId = ?";
 
+    private static final String SQL_SELECT_ORGID_BY_PERSONID
+            = "select organizationId from superpersonorganization"
+            + "where superpersonId = ?";
+
     private static final class PersonMapper implements RowMapper<SuperPerson> {
 
         @Override
         public SuperPerson mapRow(ResultSet rs, int i) throws SQLException {
             SuperPerson sp = new SuperPerson();
             sp.setSuperName(rs.getString("superName"));
-            sp.setDescription(rs.getString("superDescription"));
+            sp.setSuperDescription(rs.getString("superDescription"));
             sp.setSide(rs.getInt("side"));
             sp.setPersonId(rs.getInt("superPersonId"));
             return sp;
@@ -142,7 +146,6 @@ public class SuperPersonDaoJdbcTemplateImpl implements SuperPersonDao {
         final int personId = person.getPersonId();
         final List<Organization> orgs = person.getOrganization();
 
-        
         for (Organization currentOrg : orgs) {
             jdbcTemplate.update(SQL_INSERT_SUPERPERSONORGANIZATION,
                     personId,
@@ -153,7 +156,6 @@ public class SuperPersonDaoJdbcTemplateImpl implements SuperPersonDao {
     private void insertSuperPersonSighting(SuperPerson person) {
         final int personId = person.getPersonId();
         final List<Sighting> sighting = person.getSighting();
-
 
         for (Sighting currentSighting : sighting) {
             jdbcTemplate.update(SQL_INSERT_SUPERPERSONSIGHTING,
@@ -179,10 +181,7 @@ public class SuperPersonDaoJdbcTemplateImpl implements SuperPersonDao {
                 new PowerMapper(),
                 person.getPersonId());
     }
-    
-                       
 
-    
     private List<SuperPerson>
             associateOrganizationandPowerwithPersons(List<SuperPerson> personList) {
         // set the complete list of org ids for persons
@@ -203,10 +202,10 @@ public class SuperPersonDaoJdbcTemplateImpl implements SuperPersonDao {
     ) {
         jdbcTemplate.update(SQL_INSERT_PERSON,
                 person.getSuperName(),
-                person.getDescription(),
+                person.getSuperDescription(),
                 person.getSide(),
                 person.getPower().getPowerId());
-        
+
         person.setPersonId(jdbcTemplate.queryForObject("select LAST_INSERT_ID()",
                 Integer.class));
 
@@ -231,7 +230,7 @@ public class SuperPersonDaoJdbcTemplateImpl implements SuperPersonDao {
     ) {
         jdbcTemplate.update(SQL_UPDATE_PERSON,
                 updatePerson.getSuperName(),
-                updatePerson.getDescription(),
+                updatePerson.getSuperDescription(),
                 updatePerson.getSide(),
                 updatePerson.getPower().getPowerId(),
                 updatePerson.getPersonId());
@@ -249,6 +248,7 @@ public class SuperPersonDaoJdbcTemplateImpl implements SuperPersonDao {
                     id);
 
             superPerson.setPower(findPowerbyPersonId(superPerson));
+            superPerson.setOrganization(findOrganizationsForPerson(superPerson));
             return superPerson;
         } catch (EmptyResultDataAccessException ex) {
             return null;
@@ -278,6 +278,12 @@ public class SuperPersonDaoJdbcTemplateImpl implements SuperPersonDao {
                 new PersonMapper(),
                 orgId);
         return associateOrganizationandPowerwithPersons(personList);
+    }
+    
+    @Override
+    public Set<Integer> getOrgIdbyPersonId (int personId) {
+         return new HashSet<>(jdbcTemplate.queryForList(SQL_SELECT_ORGID_BY_PERSONID, Integer.class));
+         
     }
 
 }

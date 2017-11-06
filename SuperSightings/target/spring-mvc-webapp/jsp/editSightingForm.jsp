@@ -52,9 +52,11 @@
             </div>
             <sf:form class="form-horizontal" role="form" modelAttribute="sighting"
                      action="editSighting" method="POST">
+                <sf:input type="hidden" class="form-control" id="sightingId"
+                          path="sightingId"/>
                 <div class="form-group">
                     <label for="add-date" class="col-md-4 control-label">Date:</label>
-                    <div class="col-md-8">
+                    <div class="col-md-4">
                         <sf:input type="date" class="form-control" id="add-date"
                                   path="date" placeholder="Date"/>
                         <sf:errors path="date" cssclass="error"></sf:errors>
@@ -62,17 +64,51 @@
                     </div>
                     <div class="form-group">
                         <label for="add-location" class="col-md-4 control-label">Location:</label>                          
-                        <div class="col-md-8">
-                        <sf:input type="text" class="form-control" id="add-location"
-                                  path="location" placeholder="Location"/>
-                        <sf:errors path="location" cssclass="error"></sf:errors>
-                        </div>
+                        <div class="col-md-4">
+                            <select class="form-control" name="locationId">
+                            <c:forEach var="location" items="${locationList}">
+                                <c:choose>
+                                    <c:when test="${sighting.getLocation()==location}">
+                                        <option selected value="${location.getLocationId()}">
+                                            ${location.getLocationName()}
+                                        </c:when>   
+                                        <c:otherwise>
+                                        <option value="${location.getLocationId()}">
+                                            ${location.getLocationName()}
+                                        </option>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                        </select>
                     </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-4 col-md-8">
-                            <input type="submit" class="btn btn-default" value="Update Sighting"/>
-                        </div>
+                </div>
+                <div class="form-group">
+                    <label for="add-superperson" class="col-md-4 control-label">Super People:</label>
+                    <div class="col-md-4">
+                        <select multiple class="form-control" name="superPersonId">
+
+                            <c:forEach var="superPerson" items="${superPersonList}">
+                                <c:choose>
+                                    <c:when test="${selectedPeople.contains(superPerson.getPersonId())}">
+                                        <option selected value="${superPerson.getPersonId()}">
+                                            ${superPerson.getSuperName()}
+                                        </option>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <option value="${superPerson.getPersonId()}">
+                                            ${superPerson.getSuperName()}
+                                        </option>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                        </select>
                     </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-8">
+                        <input type="submit" class="btn btn-default" value="Update Sighting"/>
+                    </div>
+                </div>
             </sf:form>                
         </div>
         <!-- Placed at the end of the document so the pages load faster -->

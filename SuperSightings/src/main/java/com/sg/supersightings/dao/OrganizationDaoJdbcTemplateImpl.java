@@ -95,7 +95,7 @@ public class OrganizationDaoJdbcTemplateImpl implements OrganizationDao {
         public SuperPerson mapRow(ResultSet rs, int i) throws SQLException {
             SuperPerson sp = new SuperPerson();
             sp.setSuperName(rs.getString("superName"));
-            sp.setDescription(rs.getString("superDescription"));
+            sp.setSuperDescription(rs.getString("superDescription"));
             sp.setSide(rs.getInt("side"));
             sp.setPersonId(rs.getInt("superPersonId"));
             return sp;

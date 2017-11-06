@@ -49,7 +49,7 @@
                 Description: <c:out value="${organization.description}"/>
             </p>
             <p>
-                Location: <c:out value="${organization.location}"/>
+                Location: <c:out value="${organization.location.getLocationName()}"/>
             </p>
             <p>
                 Phone: <c:out value="${organization.phone}"/>

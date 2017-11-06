@@ -85,6 +85,16 @@ public class SightingDaoJdbcTemplateImpl implements SightingDao {
             = "select p.* from power p "
             + "inner join superperson on p.powerId = superperson.powerId "
             + "where superperson.superPersonId = ?";
+    
+    private static final String SQL_FIND_LAST_TEN_SIGHTINGS
+            = "select * from sighting where date > ? order by date desc limit 10";
+
+    @Override
+    public List<Sighting> findLastTenSightings(LocalDate date) {
+        return jdbcTemplate.query(SQL_FIND_LAST_TEN_SIGHTINGS,
+                        new SightingMapper(),
+                        java.sql.Date.valueOf(date));
+    }
 
     private static final class SightingMapper implements RowMapper<Sighting> {
 
@@ -103,7 +113,7 @@ public class SightingDaoJdbcTemplateImpl implements SightingDao {
         public SuperPerson mapRow(ResultSet rs, int i) throws SQLException {
             SuperPerson sp = new SuperPerson();
             sp.setSuperName(rs.getString("superName"));
-            sp.setDescription(rs.getString("superDescription"));
+            sp.setSuperDescription(rs.getString("superDescription"));
             sp.setSide(rs.getInt("side"));
             sp.setPersonId(rs.getInt("superPersonId"));
             return sp;

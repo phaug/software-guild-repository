@@ -67,20 +67,20 @@
                         <c:forEach var="currentSuperPerson" items="${personsList}">
                             <tr>
                                 <td>
-                                    <a href="displaySuperPersonDetails?superPersonId=${currentSuperPerson.superPersonId}">
+                                    <a href="displaySuperPersonDetails?superPersonId=${currentSuperPerson.personId}">
                                         <c:out value="${currentSuperPerson.superName}"/>
                                     </a>
                                 </td>
                                 <td>
-                                    <c:out value="${currentSuperPerson.description}"/>
+                                    <c:out value="${currentSuperPerson.superDescription}"/>
                                 </td>
                                 <td>
-                                    <a href="displayEditSuperPersonForm?contactId=${currentSuperPerson.superPersonId}">
+                                    <a href="displayEditSuperPersonForm?superPersonId=${currentSuperPerson.personId}">
                                         Edit
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="deleteSuperPerson?superPersonId=${currentSuperPerson.superPersonId}">
+                                    <a href="deleteSuperPerson?superPersonId=${currentSuperPerson.personId}">
                                         Delete
                                     </a>
                                 </td>
@@ -105,25 +105,41 @@
                         <div class="form-group">
                             <label for="add-description" class="col-md-4 control-label">Description:</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" name="description" placeholder="Description"/>
+                                <input type="text" class="form-control" name="superDescription" placeholder="Description"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="add-power" class="col-md-4 control-label">Power:</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" name="power" placeholder="Power"/>
+                                <select class="form-control" name="powerId">
+                                    <c:forEach var="power" items="${powerList}">
+                                        <option value="${power.getPowerId()}">
+                                            ${power.getPowerName()}
+                                        </option>
+                                    </c:forEach>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="add-organization" class="col-md-4 control-label">Organization:</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" name="organization" placeholder="Organization"/>
+                                <select multiple class="form-control" name="organizationId">
+                                    <c:forEach var="organization" items="${organizationList}">
+                                        <option value="${organization.getOrganizationId()}">
+                                            ${organization.getOrgName()}
+                                        </option>
+                                    </c:forEach>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="add-side" class="col-md-4 control-label">Good or Evil?:</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" name="side" placeholder="Side"/>
+                                <select class="form-control" name="side">
+                                    <option value="-1">Evil</option>
+                                    <option value="0">Neutral</option>
+                                    <option value="1">Good</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">

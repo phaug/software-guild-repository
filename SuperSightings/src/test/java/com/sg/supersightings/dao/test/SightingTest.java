@@ -110,7 +110,7 @@ public class SightingTest {
 
         SuperPerson sp = new SuperPerson();
         sp.setSuperName("george");
-        sp.setDescription("Yeah");
+        sp.setSuperDescription("Yeah");
         sp.setSide(0);
         sp.setPower(p);
         spDao.addPerson(sp);
@@ -144,7 +144,7 @@ public class SightingTest {
 
         SuperPerson sp = new SuperPerson();
         sp.setSuperName("george");
-        sp.setDescription("Yeah");
+        sp.setSuperDescription("Yeah");
         sp.setSide(0);
         sp.setPower(p);
         spDao.addPerson(sp);
@@ -188,7 +188,7 @@ public class SightingTest {
 
         SuperPerson sp = new SuperPerson();
         sp.setSuperName("george");
-        sp.setDescription("Yeah");
+        sp.setSuperDescription("Yeah");
         sp.setSide(0);
         sp.setPower(p);
         spDao.addPerson(sp);
@@ -226,7 +226,7 @@ public class SightingTest {
 
         SuperPerson sp = new SuperPerson();
         sp.setSuperName("george");
-        sp.setDescription("Yeah");
+        sp.setSuperDescription("Yeah");
         sp.setSide(0);
         sp.setPower(p);
         spDao.addPerson(sp);
@@ -253,7 +253,7 @@ public class SightingTest {
 
         SuperPerson sp2 = new SuperPerson();
         sp2.setSuperName("Fred");
-        sp2.setDescription("Blah");
+        sp2.setSuperDescription("Blah");
         sp2.setSide(0);
         sp2.setPower(p2);
         spDao.addPerson(sp2);
@@ -286,7 +286,7 @@ public class SightingTest {
 
         SuperPerson sp = new SuperPerson();
         sp.setSuperName("george");
-        sp.setDescription("Yeah");
+        sp.setSuperDescription("Yeah");
         sp.setSide(0);
         sp.setPower(p);
         spDao.addPerson(sp);
@@ -319,7 +319,7 @@ public class SightingTest {
 
         SuperPerson sp = new SuperPerson();
         sp.setSuperName("george");
-        sp.setDescription("Yeah");
+        sp.setSuperDescription("Yeah");
         sp.setSide(0);
         sp.setPower(p);
         spDao.addPerson(sp);
@@ -352,7 +352,7 @@ public class SightingTest {
 
         SuperPerson sp = new SuperPerson();
         sp.setSuperName("george");
-        sp.setDescription("Yeah");
+        sp.setSuperDescription("Yeah");
         sp.setSide(0);
         sp.setPower(p);
         spDao.addPerson(sp);
@@ -386,7 +386,7 @@ public class SightingTest {
 
         SuperPerson sp = new SuperPerson();
         sp.setSuperName("george");
-        sp.setDescription("Yeah");
+        sp.setSuperDescription("Yeah");
         sp.setSide(0);
         sp.setPower(p);
         spDao.addPerson(sp);

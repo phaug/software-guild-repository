@@ -24,8 +24,6 @@ public class SuperPerson {
     @NotEmpty(message = "You must supply a value for Description.")
     @Length(max = 100, message = "Description must be no more than 100 characters in length.")
     private String superDescription;
-    @Length(message = "You must supply a value for Side, "
-            + "please write -1 for evil, 0 for neutral, or 1 for hero.")
     private int side;
     private Power power;
     private List<Organization> organization = new ArrayList<>();
@@ -47,11 +45,11 @@ public class SuperPerson {
         this.superName = superName;
     }
 
-    public String getDescription() {
+    public String getSuperDescription() {
         return superDescription;
     }
 
-    public void setDescription(String superDescription) {
+    public void setSuperDescription(String superDescription) {
         this.superDescription = superDescription;
     }
 

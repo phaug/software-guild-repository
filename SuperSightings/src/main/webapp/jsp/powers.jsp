@@ -67,11 +67,6 @@
                                 <td>
                                     <c:out value="${currentPower.powerName}"/>
                                 </td>
-                                <td>
-                                    <a href="deletePower?powerId=${currentPower.powerId}">
-                                        Delete
-                                    </a>
-                                </td>
                             </tr>
                         </c:forEach> 
                     </table>                    

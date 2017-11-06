@@ -7,19 +7,22 @@ package com.sg.supersightings.controller;
 
 import com.sg.supersightings.dao.LocationDao;
 import com.sg.supersightings.dao.SightingDao;
+import com.sg.supersightings.dao.SuperPersonDao;
 import com.sg.supersightings.model.Location;
 import com.sg.supersightings.model.Sighting;
+import com.sg.supersightings.model.SuperPerson;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -28,23 +31,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class SightingsController {
 
+    @Autowired
     SightingDao dao;
+    @Autowired
     LocationDao lDao;
-
-    @Inject
-    public SightingsController(SightingDao dao) {
-        this.dao = dao;
-    }
-
+    @Autowired
+    SuperPersonDao spDao;
 
     @RequestMapping(value = "/createSighting", method = RequestMethod.POST)
-    public String createSighting(HttpServletRequest request) {
+    public String createSighting(
+            @RequestParam("date") String dateString,
+            @RequestParam("locationId") Integer locationId,
+            @RequestParam("personId") List<Integer> personId) {
 
         Sighting sighting = new Sighting();
-        int locationId = Integer.parseInt(request.getParameter("locationId"));
         Location location = lDao.getLocationbyId(locationId);
-//        sighting.setDate(LocalDate.MAX);
+        sighting.setDate(LocalDate.parse(dateString));
         sighting.setLocation(location);
+        List<SuperPerson> spList = new ArrayList<>();
+        for (Integer superList : personId) {
+            spList.add(spDao.getPersonbyId(superList));
+        }
+        sighting.setSuperPerson(spList);
 
         dao.addSighting(sighting);
 
@@ -52,11 +60,15 @@ public class SightingsController {
     }
 
     @RequestMapping(value = "/displaySightingsPage", method = RequestMethod.GET)
-    public String displayContactsPage(Model model) {
+    public String displaySightingsPage(Model model) {
         // Get all the Sightings from the DAO
         List<Sighting> sightingList = dao.getAllSightings();
+        List<Location> locationList = lDao.getAllLocations();
+        List<SuperPerson> superPersonList = spDao.getAllPersons();
 
         model.addAttribute("sightingList", sightingList);
+        model.addAttribute("locationList", locationList);
+        model.addAttribute("superPersonList", superPersonList);
 
         return "sightings";
     }
@@ -85,17 +97,39 @@ public class SightingsController {
     public String displayEditSightingForm(HttpServletRequest request, Model model) {
         String sightingIdParameter = request.getParameter("sightingId");
         int sightingId = Integer.parseInt(sightingIdParameter);
+        List<SuperPerson> superPersonList = spDao.getAllPersons();
+        model.addAttribute("superPersonList", superPersonList);
+        List<Location> locationList = lDao.getAllLocations();
+        model.addAttribute("locationList", locationList);
+
         Sighting sighting = dao.getSightingbyId(sightingId);
         model.addAttribute("sighting", sighting);
+        model.addAttribute("sightingId", sightingId);
+        List<Integer> selectedPeople = new ArrayList<>();
+        for (SuperPerson sp : sighting.getSuperPerson()) {
+            selectedPeople.add(sp.getPersonId());
+        }
+        model.addAttribute("selectedPeople", selectedPeople);
         return "editSightingForm";
     }
 
     @RequestMapping(value = "/editSighting", method = RequestMethod.POST)
-    public String editSighting(@Valid @ModelAttribute("sighting") Sighting sighting, BindingResult result) {
+    public String editSighting(
+            @RequestParam("date") String date,
+            @RequestParam("locationId") Integer locationId,
+            @RequestParam("superPersonId") List<Integer> personId,
+            @RequestParam("sightingId") Integer sightingId) {
 
-    if (result.hasErrors()) {
-        return "editSightingForm";
-    }
+        Sighting sighting = new Sighting();
+        Location location = lDao.getLocationbyId(locationId);
+        sighting.setDate(LocalDate.parse(date));
+        sighting.setLocation(location);
+        sighting.setSightingId(sightingId);
+        List<SuperPerson> spList = new ArrayList<>();
+        for (Integer superList : personId) {
+            spList.add(spDao.getPersonbyId(superList));
+        }
+        sighting.setSuperPerson(spList);
         dao.updateSighting(sighting);
 
         return "redirect:displaySightingsPage";
