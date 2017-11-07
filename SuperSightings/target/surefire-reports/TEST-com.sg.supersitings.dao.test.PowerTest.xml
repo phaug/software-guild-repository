@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="5" failures="0" name="com.sg.supersitings.dao.test.PowerTest" time="0.445" errors="1" skipped="0">
+<testsuite tests="1" failures="0" name="com.sg.supersitings.dao.test.PowerTest" time="0.118" errors="1" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_144\jre\bin"/>
     <property name="java.vm.version" value="25.144-b01"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
-    <property name="maven.multiModuleProjectDirectory" value="C:\Users\apprentice\Documents\patrick-haug-work\patrick-haug-individual-work\SuperSightings"/>
+    <property name="maven.multiModuleProjectDirectory" value="C:\Users\apprentice\Documents\patrick-haug-work\patrick-haug-individual-work - Copy\SuperSightings"/>
     <property name="java.vendor.url" value="http://java.oracle.com/"/>
     <property name="path.separator" value=";"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
@@ -15,9 +15,8 @@
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value=""/>
-    <property name="test" value="com.sg.supersitings.dao.test.PowerTest"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="C:\Users\apprentice\Documents\patrick-haug-work\patrick-haug-individual-work\SuperSightings"/>
+    <property name="user.dir" value="C:\Users\apprentice\Documents\patrick-haug-work\patrick-haug-individual-work - Copy\SuperSightings"/>
     <property name="java.runtime.version" value="1.8.0_144-b01"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
     <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.8.0_144\jre\lib\endorsed"/>
@@ -48,7 +47,7 @@
     <property name="java.vm.specification.version" value="1.8"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="C:\Program Files\Java\jdk1.8.0_144\jre"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dtest=com.sg.supersitings.dao.test.PowerTest -Dmaven.ext.class.path=C:\Program Files\NetBeans 8.2\java\maven-nblib\netbeans-eventspy.jar surefire:test"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dmaven.ext.class.path=C:\Program Files\NetBeans 8.2\java\maven-nblib\netbeans-eventspy.jar install"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="en"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -65,20 +64,22 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="com.sg.supersitings.dao.test.PowerTest" name="addPower" time="0.405"/>
-  <testcase classname="com.sg.supersitings.dao.test.PowerTest" name="deletePower" time="0.01">
-    <error message="Incorrect result size: expected 1, actual 0" type="org.springframework.dao.EmptyResultDataAccessException">org.springframework.dao.EmptyResultDataAccessException: Incorrect result size: expected 1, actual 0
-	at org.springframework.dao.support.DataAccessUtils.requiredSingleResult(DataAccessUtils.java:71)
-	at org.springframework.jdbc.core.JdbcTemplate.queryForObject(JdbcTemplate.java:801)
-	at com.sg.supersightings.dao.PowerDaoJdbcTemplateImpl.getPowerbyId(PowerDaoJdbcTemplateImpl.java:83)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+  <testcase classname="com.sg.supersitings.dao.test.PowerTest" name="addPower" time="0.118">
+    <error message="PreparedStatementCallback; SQL [delete from superperson where powerId = ?]; Cannot delete or update a parent row: a foreign key constraint fails (`super_sightings_test`.`superpersonsighting`, CONSTRAINT `fk_superpersonsighting_superperson` FOREIGN KEY (`superpersonId`) REFERENCES `superperson` (`superPersonId`)); nested exception is com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Cannot delete or update a parent row: a foreign key constraint fails (`super_sightings_test`.`superpersonsighting`, CONSTRAINT `fk_superpersonsighting_superperson` FOREIGN KEY (`superpersonId`) REFERENCES `superperson` (`superPersonId`))" type="org.springframework.dao.DataIntegrityViolationException">org.springframework.dao.DataIntegrityViolationException: PreparedStatementCallback; SQL [delete from superperson where powerId = ?]; Cannot delete or update a parent row: a foreign key constraint fails (`super_sightings_test`.`superpersonsighting`, CONSTRAINT `fk_superpersonsighting_superperson` FOREIGN KEY (`superpersonId`) REFERENCES `superperson` (`superPersonId`)); nested exception is com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Cannot delete or update a parent row: a foreign key constraint fails (`super_sightings_test`.`superpersonsighting`, CONSTRAINT `fk_superpersonsighting_superperson` FOREIGN KEY (`superpersonId`) REFERENCES `superperson` (`superPersonId`))
+	at org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.doTranslate(SQLErrorCodeSQLExceptionTranslator.java:243)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:73)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:649)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:870)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:931)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:941)
+	at com.sg.supersightings.dao.PowerDaoJdbcTemplateImpl.deletePower(PowerDaoJdbcTemplateImpl.java:74)
+	at sun.reflect.GeneratedMethodAccessor37.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
 	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:333)
 	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:207)
-	at com.sun.proxy.$Proxy18.getPowerbyId(Unknown Source)
-	at com.sg.supersitings.dao.test.PowerTest.deletePower(PowerTest.java:82)
+	at com.sun.proxy.$Proxy16.deletePower(Unknown Source)
+	at com.sg.supersitings.dao.test.PowerTest.setUp(PowerTest.java:52)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -86,8 +87,7 @@
 	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
 	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
 	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
-	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
-	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
 	at org.springframework.test.context.junit4.statements.RunBeforeTestMethodCallbacks.evaluate(RunBeforeTestMethodCallbacks.java:75)
 	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
 	at org.springframework.test.context.junit4.statements.RunAfterTestMethodCallbacks.evaluate(RunAfterTestMethodCallbacks.java:86)
@@ -118,9 +118,38 @@
 	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Cannot delete or update a parent row: a foreign key constraint fails (`super_sightings_test`.`superpersonsighting`, CONSTRAINT `fk_superpersonsighting_superperson` FOREIGN KEY (`superpersonId`) REFERENCES `superperson` (`superPersonId`))
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:400)
+	at com.mysql.jdbc.Util.getInstance(Util.java:383)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:973)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3847)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3783)
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2447)
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2594)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2545)
+	at com.mysql.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:1901)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:2113)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:2049)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:2034)
+	at org.apache.commons.dbcp2.DelegatingPreparedStatement.executeUpdate(DelegatingPreparedStatement.java:98)
+	at org.apache.commons.dbcp2.DelegatingPreparedStatement.executeUpdate(DelegatingPreparedStatement.java:98)
+	at org.springframework.jdbc.core.JdbcTemplate$2.doInPreparedStatement(JdbcTemplate.java:877)
+	at org.springframework.jdbc.core.JdbcTemplate$2.doInPreparedStatement(JdbcTemplate.java:870)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:633)
+	... 49 more
 </error>
+    <system-err>Nov 06, 2017 11:35:21 AM org.springframework.test.context.support.DefaultTestContextBootstrapper getDefaultTestExecutionListenerClassNames
+INFO: Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+Nov 06, 2017 11:35:21 AM org.springframework.test.context.support.DefaultTestContextBootstrapper getTestExecutionListeners
+INFO: Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@e26af6, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@44065156, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@3791f50e, org.springframework.test.context.support.DirtiesContextTestExecutionListener@574b7f4a, org.springframework.test.context.transaction.TransactionalTestExecutionListener@44ed0a8f, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@32177fa5]
+Nov 06, 2017 11:35:21 AM org.springframework.beans.factory.xml.XmlBeanDefinitionReader loadBeanDefinitions
+INFO: Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+Nov 06, 2017 11:35:21 AM org.springframework.jdbc.support.SQLErrorCodesFactory &lt;init&gt;
+INFO: SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+</system-err>
   </testcase>
-  <testcase classname="com.sg.supersitings.dao.test.PowerTest" name="updatePower" time="0.006"/>
-  <testcase classname="com.sg.supersitings.dao.test.PowerTest" name="getAllPowers" time="0.017"/>
-  <testcase classname="com.sg.supersitings.dao.test.PowerTest" name="getPowerById" time="0.007"/>
 </testsuite>
