@@ -87,13 +87,14 @@ public class SightingDaoJdbcTemplateImpl implements SightingDao {
             + "where superperson.superPersonId = ?";
     
     private static final String SQL_FIND_LAST_TEN_SIGHTINGS
-            = "select * from sighting where date > ? order by date desc limit 10";
+            = "select * from sighting order by date desc limit 10";
 
     @Override
-    public List<Sighting> findLastTenSightings(LocalDate date) {
-        return jdbcTemplate.query(SQL_FIND_LAST_TEN_SIGHTINGS,
-                        new SightingMapper(),
-                        java.sql.Date.valueOf(date));
+    public List<Sighting> findLastTenSightings() {
+        List <Sighting> sightingList = jdbcTemplate.query(SQL_FIND_LAST_TEN_SIGHTINGS,
+                        new SightingMapper());
+        
+        return associateLocationandPersonsWithSighting(sightingList);
     }
 
     private static final class SightingMapper implements RowMapper<Sighting> {

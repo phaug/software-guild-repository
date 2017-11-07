@@ -49,15 +49,30 @@
                     </li>
                 </ul>    
             </div>
-            <p>
-                Sightings Locator for Super Sightings!
-            </p>
-            <div>
-                <c:forEach var="sighting" items="${sightingList}">
-                    <div>
-                        Id:${sighting.sightingId}
-                    </div>
-                </c:forEach>
+            <div class="container-fluid" style="border: solid 1px #f0f0f5 ">
+                <h2 style="text-align: center">Latest Sightings</h2>
+                <table id="sightingsTable" class="table table-hover" >
+                    <tr>
+                        <th width="25%">Date</th>
+                        <th width="25%">Location</th>
+                        <th width="50">Super Human</th>
+                    </tr>
+                    <c:forEach var="sightings" items="${sightingList}">
+                        <tr>
+                            <td>
+                                <c:out value="${sightings.date}"/>   
+                            </td>
+                            <td>
+                                <c:out value="${sightings.location.locationName}"/>
+                            </td>
+                            <td>
+                                <c:forEach var="currentPeople" items="${sightings.superPerson}">
+                                    <c:out value="${currentPeople.superName}"/> : 
+                                </c:forEach>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </table>
             </div>
         </div>
 
