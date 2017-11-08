@@ -66,6 +66,11 @@ public class SightingDaoJdbcTemplateImpl implements SightingDao {
             + "inner join sighting on l.locationId = sighting.locationId "
             + "where sighting.sightingId = ?";
 
+    private static final String SQL_SELECT_SIGHTINGS_BY_LOCATIONID
+            = "select s.* from sighting s "
+            + "inner join location on s.locationId = location.locationId "
+            + "where location.locationId = ? ";
+
     private static final String SQL_SELECT_SIGHTING_BY_PERSONID
             = "select s.* from sighting s "
             + "inner join superpersonsighting on s.sightingId = superpersonsighting.sightingId "
@@ -85,15 +90,15 @@ public class SightingDaoJdbcTemplateImpl implements SightingDao {
             = "select p.* from power p "
             + "inner join superperson on p.powerId = superperson.powerId "
             + "where superperson.superPersonId = ?";
-    
+
     private static final String SQL_FIND_LAST_TEN_SIGHTINGS
             = "select * from sighting order by date desc limit 10";
 
     @Override
     public List<Sighting> findLastTenSightings() {
-        List <Sighting> sightingList = jdbcTemplate.query(SQL_FIND_LAST_TEN_SIGHTINGS,
-                        new SightingMapper());
-        
+        List<Sighting> sightingList = jdbcTemplate.query(SQL_FIND_LAST_TEN_SIGHTINGS,
+                new SightingMapper());
+
         return associateLocationandPersonsWithSighting(sightingList);
     }
 
@@ -242,6 +247,16 @@ public class SightingDaoJdbcTemplateImpl implements SightingDao {
 
         List<Sighting> sightingList = jdbcTemplate.query(SQL_SELECT_ALL_SIGHTINGS,
                 new SightingMapper());
+
+        return associateLocationandPersonsWithSighting(sightingList);
+    }
+
+    @Override
+    public List<Sighting> getSightingbyLocationId(int locationId) {
+
+        List<Sighting> sightingList = jdbcTemplate.query(SQL_SELECT_SIGHTINGS_BY_LOCATIONID,
+                new SightingMapper(),
+                locationId);
 
         return associateLocationandPersonsWithSighting(sightingList);
     }

@@ -82,7 +82,7 @@
                 <div class="form-group">
                     <label for="add-phone" class="col-md-4 control-label">Phone:</label>
                     <div class="col-md-8">
-                        <sf:input type="tel" class="form-control" id="phone"
+                        <sf:input type="tel" pattern="[0-9]*" class="form-control" id="phone"
                                   path="phone" placeholder="Phone"/>
                         <sf:errors path="phone" cssclass="error"></sf:errors>
                         <sf:hidden path="organizationId"/>

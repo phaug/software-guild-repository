@@ -99,13 +99,13 @@
                         <div class="form-group">
                             <label for="add-organizationName" class="col-md-4 control-label">Organization Name:</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" name="organizationName" placeholder="Organization Name"/>
+                                <input type="text" class="form-control" name="organizationName" placeholder="Organization Name" required/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="add-description" class="col-md-4 control-label">Description:</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" name="description" placeholder="Description"/>
+                                <input type="text" class="form-control" name="description" placeholder="Description" required/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -113,7 +113,7 @@
                             <div class="col-md-8">
                                 <select class="form-control" name="locationId">
                                     <c:forEach var="location" items="${locationList}">
-                                    <option value="${location.getLocationId()}">
+                                    <option value="${location.getLocationId()}" required>
                                         ${location.getLocationName()}
                                     </option>
                                     </c:forEach>
@@ -123,7 +123,7 @@
                         <div class="form-group">
                             <label for="add-phone" class="col-md-4 control-label">Phone:</label>
                             <div class="col-md-8">
-                                <input type="tel" class="form-control" name="phone" placeholder="Phone"/>
+                                <input type="tel" pattern="[0-9]*" class="form-control" name="phone" placeholder="Phone" required=""/>
                             </div>
                         </div>
                         <div class="form-group">

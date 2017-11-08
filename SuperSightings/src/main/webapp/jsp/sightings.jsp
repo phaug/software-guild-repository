@@ -98,7 +98,7 @@
                         <div class="form-group">
                             <label for="add-date" class="col-md-4 control-label">Date:</label>
                             <div class="col-md-8">
-                                <input type="date" class="form-control" name="date" placeholder="Date"/>
+                                <input type="date" class="form-control" name="date" placeholder="Date" required/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -106,7 +106,7 @@
                             <div class="col-md-8">
                                 <select class="form-control" name="locationId">
                                     <c:forEach var="location" items="${locationList}">
-                                        <option value="${location.getLocationId()}">
+                                        <option value="${location.getLocationId()}" required>
                                             ${location.getLocationName()}
                                         </option>
                                     </c:forEach>

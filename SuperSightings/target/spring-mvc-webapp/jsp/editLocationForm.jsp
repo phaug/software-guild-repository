@@ -78,7 +78,7 @@
                     <div class="form-group">
                         <label for="add-latitude" class="col-md-4 control-label">Latitude:</label>
                         <div class="col-md-8">
-                        <sf:input type="text" class="form-control" id="latitude"
+                        <sf:input type="number" min="-90" max="90" maxlength="10" class="form-control" id="latitude"
                                   path="latitude" placeholder="Latitude"/>
                         <sf:errors path="latitude" cssclass="error"></sf:errors>
                         </div>
@@ -86,7 +86,7 @@
                     <div class="form-group">
                         <label for="add-longitude" class="col-md-4 control-label">Longitude:</label>
                         <div class="col-md-8">
-                        <sf:input type="text" class="form-control" id="longitude"
+                        <sf:input type="number" min="-180" max="180" maxlength="10" class="form-control" id="longitude"
                                   path="longitude" placeholder="Longitude"/>
                         <sf:errors path="longitude" cssclass="error"></sf:errors>
                         <sf:hidden path="locationId"/>

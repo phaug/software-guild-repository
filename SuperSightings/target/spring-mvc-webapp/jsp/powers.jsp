@@ -82,7 +82,7 @@
                         <div class="form-group">
                             <label for="addPower" class="col-md-4 control-label">Power:</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" name="power" placeholder="Power"/>
+                                <input type="text" class="form-control" name="power" placeholder="Power" required/>
                             </div>
                         </div>
                         <div class="form-group">

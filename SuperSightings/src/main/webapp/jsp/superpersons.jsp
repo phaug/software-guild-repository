@@ -99,13 +99,13 @@
                         <div class="form-group">
                             <label for="add-person-name" class="col-md-4 control-label">Super Name:</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" name="superName" placeholder="Super Name"/>
+                                <input type="text" class="form-control" name="superName" placeholder="Super Name" required/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="add-description" class="col-md-4 control-label">Description:</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" name="superDescription" placeholder="Description"/>
+                                <input type="text" class="form-control" name="superDescription" placeholder="Description" required/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -125,7 +125,7 @@
                             <div class="col-md-8">
                                 <select multiple class="form-control" name="organizationId">
                                     <c:forEach var="organization" items="${organizationList}">
-                                        <option value="${organization.getOrganizationId()}">
+                                        <option value="${organization.getOrganizationId()}"  required>
                                             ${organization.getOrgName()}
                                         </option>
                                     </c:forEach>

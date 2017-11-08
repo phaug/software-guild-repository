@@ -99,13 +99,13 @@
                         <div class="form-group">
                             <label for="add-location-name" class="col-md-4 control-label">Location Name:</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" name="locationName" placeholder="Location Name"/>
+                                <input type="text" class="form-control" name="locationName" placeholder="Location Name" required/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="add-description" class="col-md-4 control-label">Description:</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" name="description" placeholder="Description"/>
+                                <input type="text" class="form-control" name="description" placeholder="Description" required/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -117,13 +117,13 @@
                         <div class="form-group">
                             <label for="add-latitude" class="col-md-4 control-label">Latitude:</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" name="latitude" placeholder="Latitude"/>
+                                <input type="number" min="-90" max="90" maxlength="10" class="form-control" name="latitude" placeholder="Latitude"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="add-longitude" class="col-md-4 control-label">Longitude:</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" name="latitude" placeholder="Latitude"/>
+                                <input type="number" min="-180" max="180" maxlength="10" class="form-control" name="latitude" placeholder="Latitude"/>
                             </div>
                         </div>
                         <div class="form-group">
